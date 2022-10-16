@@ -17,30 +17,30 @@
 #include <type_traits>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#variadic-templates\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#variadic-templates")
 
-//<<
+namespace {
 template<typename... T>
 struct arity {
   constexpr static int value = sizeof...(T);
 };
-//>>
+}
 
-//<<
+namespace {
 template<typename First, typename... Args>
 auto sum(First first, Args... args) -> decltype(first)
 {
   const auto acc = { first, args... };
   return std::accumulate(acc.begin(), acc.end(), static_cast<First>(0));
 }
-//>>
+}
 
 TEST(
   variadic_templates_basics,
   "The ... syntax creates a parameter pack or expands one. A template parameter\n"
   "pack is a template parameter that accepts zero or more template arguments\n"
   "(non-types, types, or templates). A template with at least one parameter\n"
-  "pack is called a variadic template.\n",
+  "pack is called a variadic template.",
   SECTION(
     "Use 'sizeof...(pack)' to query the number of elements in a parameter pack.",
     std::cout << GIVEN[0] << std::endl;

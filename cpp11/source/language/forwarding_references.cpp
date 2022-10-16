@@ -13,7 +13,7 @@
 #include "utilities\classes\printer.h"
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#forwarding-references\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#forwarding-references")
 
 EXERCISES(
   "1- Implement std::forward, and test it, make sure to compare to the std\n" 
@@ -24,10 +24,9 @@ EXERCISES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#forwarding-references\n"
   "Interesting read:\n"
   "https://stackoverflow.com/questions/16637945/empirically-determine-value-category-of-c11-expression\n"
-  "https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c\n")		
+  "https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c")		
 
 
-//<<
 namespace {
 template<class T>
 void f(T&& t)
@@ -37,7 +36,6 @@ void f(T&& t)
   printer::print(std::forward<T>(t));
 }
 }
-//>>
 
 TEST(
   forwarding_references,
@@ -45,7 +43,7 @@ TEST(
   "created with the syntax T&& where T is a template type parameter, or using\n"
   "auto&&. This enables perfect forwarding: the ability to pass arguments while\n"
   "maintaining their value category (e.g. lvalues stay as lvalues,\n"
-  "temporaries are forwarded as rvalues).\n",
+  "temporaries are forwarded as rvalues).",
   SECTION(
     "Template type parameter deduction with lvalues and rvalues",
     std::cout << GIVEN[0] << std::endl;

@@ -76,14 +76,30 @@ uint32_t get_user_input(std::unordered_map<uint32_t, std::string> &index_to_opti
   return 0;
 }
 
-// return feature options.
 std::unordered_map<uint32_t, std::string>
-get_options()
+get_category_options()
 {
   std::unordered_map<uint32_t, std::string> index_to_feature;
+  
   {
     uint32_t index = 1;
-    for (auto& feature_pair : registrar::s_tests)
+    index_to_feature[index++] = registrar::language;
+    index_to_feature[index++] = registrar::library;
+  }
+
+  return index_to_feature;
+}
+
+// return feature options.
+std::unordered_map<uint32_t, std::string>
+get_options(bool language)
+{
+  std::unordered_map<uint32_t, std::string> index_to_feature;
+  auto& repo = language? registrar::s_tests : registrar::s_library_tests;
+  
+  {
+    uint32_t index = 1;
+    for (auto& feature_pair : repo)
       index_to_feature[index++] = feature_pair.first;
   }
 
@@ -92,12 +108,15 @@ get_options()
 
 // return test options for a specific feature.
 std::unordered_map<uint32_t, std::string>
-get_options(const std::string& feature)
+get_options(
+  bool language, 
+  const std::string& feature)
 {
   std::unordered_map<uint32_t, std::string> index_to_tests;
+
   {
     uint32_t index = 1;
-    for (auto& test : registrar::get_tests(feature))
+    for (auto& test : registrar::get_tests(feature, language))
       index_to_tests[index++] = test;
   }
 
@@ -106,12 +125,15 @@ get_options(const std::string& feature)
 
 // return section options for a specific test within a feature.
 std::unordered_map<uint32_t, std::string>
-get_options(const std::string& feature, const std::string& test)
+get_options(
+  bool language, 
+  const std::string& feature, 
+  const std::string& test)
 {
   std::unordered_map<uint32_t, std::string> index_to_sections;
   {
     uint32_t index = 1;
-    for (auto& section : registrar::get_test_sections(feature, test))
+    for (auto& section : registrar::get_test_sections(feature, test, language))
       index_to_sections[index++] = section;
   }
 
@@ -132,16 +154,26 @@ int32_t main()
     index_to_options.clear();
 
     switch (options.size()) {
-    case 0: // get feature
-      index_to_options = get_options();
+    case 0: // language or library feature.
+      index_to_options = get_category_options();
+      title = "please select a category of features: ";
+      break;
+    case 1: // get feature
+      index_to_options = get_options(
+        options[0] == registrar::language);
       title = "please select a feature to review:";
       break;
-    case 1: // get tests
-      index_to_options = get_options(options[0]);
+    case 2: // get tests
+      index_to_options = get_options(
+        options[0] == registrar::language, 
+        options[1]);
       title = "please select a test:";
       break;
-    case 2: // get sections
-      index_to_options = get_options(options[0], options[1]);
+    case 3: // get sections
+      index_to_options = get_options(
+        options[0] == registrar::language, 
+        options[1], 
+        options[2]);
       title = "please select a test section:";
       break;
     default:
@@ -178,13 +210,24 @@ int32_t main()
 
       // run the test.
       if (
-        options.size() == 1 &&
-        get_options(options[0], option).size() == 0) {
-          registrar::run_test(options[0], option, "");
+        options.size() == 2 &&
+        get_options(
+          options[0] == registrar::language, 
+          options[1], 
+          option).size() == 0) {
+          registrar::run_test(
+            options[1], 
+            option, 
+            "", 
+            options[0] == registrar::language);
           hang_till_newline();
       }
-      else if (options.size() == 2) {
-        registrar::run_test(options[0], options[1], option);
+      else if (options.size() == 3) {
+        registrar::run_test( 
+          options[1], 
+          options[2], 
+          option,
+          options[0] == registrar::language);
         hang_till_newline();
       }
       else

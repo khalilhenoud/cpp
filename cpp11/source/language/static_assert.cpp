@@ -16,16 +16,16 @@
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#static-assertions\n"
-  "https://en.cppreference.com/w/cpp/language/static_assert\n")
+  "https://en.cppreference.com/w/cpp/language/static_assert")
 
-//<<
+namespace {
 template<class...Args>
 struct arity {
   constexpr static int value = sizeof...(Args);
 };
-//>>
+}
 
-//<<
+namespace {
 template<class T>
 void swap(T& a, T& b)
 {
@@ -58,11 +58,11 @@ struct copyable {
   copyable& operator=(const copyable& b) noexcept = default;
   int32_t i = -1;
 };
-//>>
+}
 
 TEST(
   static_assertions,
-  "Assertions that are evaluated at compile-time.\n",
+  "Assertions that are evaluated at compile-time.",
   SECTION(
     "Basic example.",
     IN(constexpr int x = 0;)

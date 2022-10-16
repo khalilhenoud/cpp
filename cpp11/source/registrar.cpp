@@ -12,18 +12,37 @@
 
 
 std::unordered_map<std::string, feature_tests> registrar::s_tests;
+std::unordered_map<std::string, feature_tests> registrar::s_library_tests;
+
+const std::string registrar::library = "library";
+const std::string registrar::language = "language";
 
 registrar::registrar(
+  const std::string& directory,
   const std::string& feature, 
   test_function func, 
   const std::string& test_name)
 {
-  if (std::find_if(s_tests[feature].begin(), s_tests[feature].end(), 
-    [=](const auto& pair)
-    { 
-      return pair.second == func;
-    }) == s_tests[feature].end())
-    s_tests[feature][test_name] = func;
+  if (directory == library) {
+    if (std::find_if(
+          s_library_tests[feature].begin(), 
+          s_library_tests[feature].end(), 
+          [=](const auto& pair)
+          { 
+            return pair.second == func;
+          }) == s_library_tests[feature].end())
+            s_library_tests[feature][test_name] = func;
+  } else if (directory == language) {
+    if (std::find_if(
+          s_tests[feature].begin(), 
+          s_tests[feature].end(), 
+          [=](const auto& pair)
+          { 
+            return pair.second == func;
+          }) == s_tests[feature].end())
+            s_tests[feature][test_name] = func;
+  } else
+    assert(false);
 }
 
 void 
@@ -44,13 +63,23 @@ registrar::run_all_tests()
 }
 
 std::vector<std::string> 
-registrar::get_tests(const std::string& feature)
+registrar::get_tests(
+  const std::string& feature, 
+  bool language)
 {
   std::vector<std::string> tests;
 
-  if (s_tests.find(feature) != s_tests.end()) {
-    for (auto& test : s_tests[feature]) {
-      tests.push_back(test.first);
+  if (language) {
+    if (s_tests.find(feature) != s_tests.end()) {
+      for (auto& test : s_tests[feature]) {
+        tests.push_back(test.first);
+      }
+    }
+  } else {
+    if (s_library_tests.find(feature) != s_library_tests.end()) {
+      for (auto& test : s_library_tests[feature]) {
+        tests.push_back(test.first);
+      }
     }
   }
 
@@ -58,11 +87,15 @@ registrar::get_tests(const std::string& feature)
 }
 
 std::vector<std::string> 
-registrar::get_test_sections(const std::string& feature, const std::string& test)
+registrar::get_test_sections(
+  const std::string& feature, 
+  const std::string& test,
+  bool language)
 {
   std::vector<std::string> sections;
 
-  std::vector<std::string> tests = get_tests(feature);
+  std::vector<std::string> tests = get_tests(feature, language);
+  auto& repo = language ? s_tests : s_library_tests;
   auto iter = std::find_if(
     tests.begin(), 
     tests.end(), 
@@ -72,13 +105,13 @@ registrar::get_test_sections(const std::string& feature, const std::string& test
 
   if (iter != tests.end()) {
     auto func_iter = std::find_if(
-      s_tests[feature].begin(), 
-      s_tests[feature].end(), 
+      repo[feature].begin(), 
+      repo[feature].end(), 
       [=](const auto& pair){
         return !strcmp(pair.first.c_str(), test.c_str());
       });
 
-    assert(func_iter != s_tests[feature].end());
+    assert(func_iter != repo[feature].end());
 
     auto test_sections = func_iter->second(nullptr, "");
     for (auto& section : test_sections)
@@ -92,10 +125,12 @@ void
 registrar::run_test(
   const std::string& feature, 
   const std::string& test, 
-  const std::string& section) 
+  const std::string& section,
+  bool language) 
 {
-  if (s_tests.find(feature) != s_tests.end()) {
-    auto& tests = s_tests[feature];
+  auto& repo = language ? s_tests : s_library_tests;
+  if (repo.find(feature) != repo.end()) {
+    auto& tests = repo[feature];
     auto test_iter = std::find_if(
       tests.begin(), 
       tests.end(), 

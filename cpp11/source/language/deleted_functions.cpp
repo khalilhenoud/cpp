@@ -14,9 +14,8 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#deleted-functions\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#deleted-functions")
 
-//<<
 namespace {
 struct A {
   A(int32_t val) : i{ val } {}
@@ -26,12 +25,11 @@ struct A {
   int32_t i = 0;
 };
 }
-//>>
 
 TEST(
   deleted_functions,
   "A more elegant, efficient way to provide a deleted implementation of a\n"
-  "function. Useful for preventing copies on objects.\n",
+  "function. Useful for preventing copies on objects.",
   SECTION(
     "basics",
     std::cout << GIVEN[0] << std::endl;

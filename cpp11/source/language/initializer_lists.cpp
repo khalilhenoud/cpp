@@ -18,9 +18,8 @@
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#initializer-lists\n"
-  "https://en.cppreference.com/w/cpp/utility/initializer_list\n")
+  "https://en.cppreference.com/w/cpp/utility/initializer_list")
 
-//<<
 namespace {
 template<class T,
   typename std::enable_if_t<std::is_arithmetic_v<T>>* = nullptr>
@@ -29,14 +28,13 @@ T sum(const std::initializer_list<T>& list)
   return std::accumulate(list.begin(), list.end(), static_cast<T>(0));
 }
 }
-//>>
 
 TEST(
   initializer_list_basics,
   "A lightweight array-like container of elements created using a \"braced list\"\n"
   "syntax. For example, { 1, 2, 3 } creates a sequences of integers, that has \n"
   "type std::initializer_list<int>. Useful as a replacement to passing a vector\n"
-  "of objects to a function.\n",
+  "of objects to a function.",
   SECTION(
     "All entries in the intializer list must be of the same type!",
     std::cout << GIVEN[0] << std::endl;

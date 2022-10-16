@@ -16,20 +16,20 @@
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#strongly-typed-enums\n"
-  "https://stackoverflow.com/questions/12581064/enum-vs-strongly-typed-enum\n")
+  "https://stackoverflow.com/questions/12581064/enum-vs-strongly-typed-enum")
 
-//<<
+namespace {
 // Specifying underlying type as `unsigned int`
 enum class Color : unsigned int { Red = 0xff0000, Green = 0x00ff00, Blue = 0x0000ff };
 // `Red`/`Green` in `Alert` don't conflict with `Color`
 enum class Alert : bool { Red, Green };
-//>>
+}
 
 TEST(
   strong_typed_enums,
   "Type-safe enums that solve a variety of problems with C-style enums\n" 
   "including: implicit conversions, inability to specify the underlying type,\n"
-  "scope pollution.\n",
+  "scope pollution.",
   SECTION(
     "examples",
     std::cout << GIVEN[0] << std::endl;

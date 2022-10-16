@@ -46,7 +46,8 @@ add_executable(${PROJECT_NAME}
 			./source/language/trailing_return_types.cpp
 			./source/language/type_aliases.cpp
 			./source/language/user_defined_literals.cpp
-			./source/language/variadic_templates.cpp)
+			./source/language/variadic_templates.cpp
+      ./source/library/move.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"

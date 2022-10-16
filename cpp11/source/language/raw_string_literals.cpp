@@ -14,7 +14,7 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#raw-string-literals\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#raw-string-literals")
 
 TEST(
   raw_string_literals,
@@ -30,7 +30,7 @@ TEST(
   "- 'delimiter' is an optional sequence of characters made of any source\n" 
   "character except parentheses, backslashes and spaces.\n"
   "- 'raw_characters' is any raw character sequence; must not contain the\n" 
-  "closing sequence \")delimiter\".\n",
+  "closing sequence \")delimiter\".",
   SECTION(
     "example:",
     IN(const char* msg1 = "\nHello,\n\tworld!\n";)

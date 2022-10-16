@@ -15,9 +15,8 @@
 #include <array>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#range-based-for-loops\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#range-based-for-loops")
 
-//<<
 namespace {
 template<class T>
 void print_container(T& container)
@@ -28,11 +27,10 @@ void print_container(T& container)
   std::cout << std::endl;
 }
 }
-//>>
 
 TEST(
   range_based_for_loops,
-  "Syntactic sugar for iterating over a container's elements.\n",
+  "Syntactic sugar for iterating over a container's elements.",
   SECTION(
     "basic example",
     std::cout << GIVEN[0] << std::endl;

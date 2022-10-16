@@ -16,7 +16,6 @@
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#non-static-data-member-initializers")
 
-//<<
 namespace {
 namespace cpp03 {
 struct human {
@@ -35,12 +34,11 @@ struct human {
 };
 }
 }
-//>>
 
 TEST(
   non_static_data_member_initializers,
   "Allows non-static data members to be initialized where they are declared,\n" 
-  "potentially cleaning up constructors of default initializations.\n",
+  "potentially cleaning up constructors of default initializations.",
   SECTION(
     "basic example",
     std::cout << GIVEN[0] << std::endl;

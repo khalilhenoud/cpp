@@ -16,23 +16,23 @@
 #include <cmath>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#user-defined-literals\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#user-defined-literals")
 
-//<<
+namespace {
 // 'unsigned long long' parameter required for integer literal.
 // Changing 'tempCelcius' to int32_t causes compilation error.
 unsigned long long operator "" _celcius(unsigned long long tempCelsius)
 {
   return std::llround(tempCelsius * 1.8 + 32);
 }
-//>>
+}
 
-//<<
+namespace {
 int32_t operator "" _int(const char* str, std::size_t length)
 {
   return std::stoi(str);
 }
-//>>
+}
 
 TEST(
   user_defined_literals,
@@ -42,7 +42,7 @@ TEST(
   "defines the name of the literal. Any literal names not starting with an\n"
   "underscore are reserved and won't be invoked. There are rules on what\n"
   "parameters a user-defined literal function should accept, according to what\n"
-  "type the literal is called on.\n",
+  "type the literal is called on.",
   SECTION(
     "celcius to farenheit conversion.",
     std::cout << GIVEN[0] << std::endl;

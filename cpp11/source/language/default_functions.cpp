@@ -16,13 +16,12 @@
 
 REFERENCES(
   "[0] https://github.com/AnthonyCalandra/modern-cpp-features#default-functions\n"
-  "[1] https://stackoverflow.com/questions/37276413/default-move-constructor-assignment-and-deleted-copy-constructor-assignment\n")
+  "[1] https://stackoverflow.com/questions/37276413/default-move-constructor-assignment-and-deleted-copy-constructor-assignment")
 
 TODO(
   "Provide an encapsulation output functionality 'std::cout'... This becomes\n"
-  "necessary when switching to a non-console display.\n")
+  "necessary when switching to a non-console display.")
 
-//<<
 namespace {
 struct A {
   A() = default;
@@ -38,10 +37,8 @@ struct A {
   int32_t i = 10;
 };
 }
-//>>
 
-//<< 
-namespace {
+namespace { 
 struct B {
   B() : i(1000) {}
   virtual ~B() = default;
@@ -61,12 +58,11 @@ struct C : B {
   // class invokes a deleted or inaccessible function 'B::B(const B &)'
 };
 }
-//>>
 
 TEST(
   default_functions,
   "A more elegant, efficient way to provide a default implementation of a\n" 
-  "function, such as a constructor.\n",
+  "function, such as a constructor.",
   SECTION(
     "basics",
     std::cout << GIVEN[0] << std::endl;

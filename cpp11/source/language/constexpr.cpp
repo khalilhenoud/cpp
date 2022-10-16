@@ -16,9 +16,8 @@
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#constexpr\n"
-  "https://en.cppreference.com/w/cpp/language/constexpr\n")
+  "https://en.cppreference.com/w/cpp/language/constexpr")
 
-//<<
 namespace {
 constexpr int32_t constexpr_square(int32_t i)
 {
@@ -30,9 +29,7 @@ int32_t square(int32_t i)
   return i * i;
 }
 }
-//>>
 
-//<<
 namespace {
 struct Complex {
   constexpr Complex(double r, double i) : re(r), im(i) {}
@@ -44,14 +41,13 @@ private:
   double im;
 };
 }
-//>>
 
 TEST(
   basics,
   "Constant expressions are expressions evaluated by the compiler at\n" 
   "compile-time. Only non-complex computations can be carried out in a constant\n"
   "expression. Use the constexpr specifier to indicate the variable, function,\n"
-  "etc. is a constant expression.\n",
+  "etc. is a constant expression.",
   SECTION(
     "compiler optimization and disassembly",
     std::cout << GIVEN[0] << std::endl;

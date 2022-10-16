@@ -16,14 +16,14 @@
 #include "utilities\classes\printer.h"
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#rvalue-references\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#rvalue-references")
 
 TEST(
   binds_only_to_rvalues,
   "rvalue references binds strictly to rvalues, xvalues are considered rvalues.\n"
   "xvalues are the result of std::move(lvalues) and can be used as the rhs of \n"
   "an assignment operation to an rvalue reference. Binding a strictly lvalue \n"
-  "to a rvalue reference will throw a compiler error.\n",
+  "to a rvalue reference will throw a compiler error.",
   SECTION(
     "simple types",
     IN(int i = 5;)

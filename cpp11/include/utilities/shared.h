@@ -19,6 +19,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <cassert>
 
 
 #define ANNOUNCE(announce) \
@@ -56,14 +57,25 @@
     buffer << codefile.rdbuf(); \
   \
     std::string code = buffer.str(); \
-    std::string delimiters[] = {"//<<", "//>>"}; \
+    std::string delimiters[] = {"namespace {"}; \
+    std::string scope_delimiters = "{}"; \
+    int32_t value[] = { 1, -1}; \
   \
     size_t start = 0, end = 0; \
+    int32_t counter; \
     while ( \
       (start = code.find(delimiters[0], start)) != std::string::npos && \
       code.at(start + delimiters[0].length()) != '"') { \
+      start = start + delimiters[0].length(); \
+      end = start; \
+      counter = 1; \
+      while (counter) { \
+        end = code.find_first_of(scope_delimiters, end + 1); \
+        assert(end != std::string::npos); \
+        counter += value[code.at(end) == scope_delimiters.at(0) ? 0 : 1]; \
+      } \
+      \
       start = code.find_first_of('\n', start) + 1; \
-      end = code.find(delimiters[1], start); \
       sections.push_back(code.substr(start, end - start)); \
       start = end; \
     } \

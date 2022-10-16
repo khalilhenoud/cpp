@@ -14,9 +14,8 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#delegating-constructors")
 
-//<<
 namespace {
 struct Foo {
   int32_t i = -1;
@@ -24,12 +23,11 @@ struct Foo {
   Foo() : Foo(0) {}
 };
 }
-//>>
 
 TEST(
   delegating_constructors,
   "Constructors can now call other constructors in the same class using an\n"
-  "initializer list.\n",
+  "initializer list.",
   SECTION(
     "basic",
     std::cout << GIVEN[0] << std::endl;

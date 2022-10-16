@@ -14,3 +14,5 @@
 
 
 std::string get_short_name(const char* file);
+
+std::string get_directory_name(const char* file);

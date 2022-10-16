@@ -14,9 +14,8 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#explicit-virtual-overrides\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#explicit-virtual-overrides")
 
-//<<
 namespace {
 struct A {
   virtual const char* foo()
@@ -40,13 +39,12 @@ struct B : A {
   //specifier 'override' did not override any base class methods
 };
 }
-//>>
 
 TEST(
   explicit_virtual_overrides,
   "Specifies that a virtual function overrides another virtual function. If the\n" 
   "virtual function does not override a parent's virtual function, throws a\n" 
-  "compiler error.\n",
+  "compiler error.",
   std::cout << GIVEN[0] << std::endl;
   IN(B b;)
   IN(A* ptr = &b;)

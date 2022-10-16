@@ -19,9 +19,9 @@
 #include <iterator>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#type-aliases\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#type-aliases")
 
-//<<
+namespace {
 template<typename T>
 using myvec = std::vector<T>;
 
@@ -32,12 +32,12 @@ using mystring = std::string;
 
 template<typename... T>
 using mytuple = std::tuple<T...>;
-//>>
+}
 
 TEST(
   type_aliases,
   "Semantically similar to using a typedef however, type aliases with using are\n" 
-  "easier to read and are compatible with templates.\n",
+  "easier to read and are compatible with templates.",
   SECTION(
     "basics",
     std::cout << GIVEN[0] << std::endl;

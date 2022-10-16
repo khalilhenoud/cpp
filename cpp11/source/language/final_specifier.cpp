@@ -14,12 +14,12 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#final-specifier\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#final-specifier")
+
 TODO(
   "1- Provide a way to indicate error in parsed code see 'struct C' without\n" 
-  "commenting the code.\n")
+  "commenting the code.")
 
-//<<
 namespace {
 struct A {
   virtual const char* foo()
@@ -40,9 +40,8 @@ struct C : B {
   //virtual const char* foo() override{ return "C"; }
 };
 }
-//>>
 
-//<<
+namespace {
 struct D final : A {
   const char* foo() override
   {
@@ -52,12 +51,12 @@ struct D final : A {
 
 // error C3246: 'E': cannot inherit from 'D' as it has been declared as 'final'
 // struct E : D {};
-//>>
+}
 
 TEST(
   final_specifier,
   "Specifies that a virtual function cannot be overridden in a derived class or\n" 
-  "that a class cannot be inherited from.\n",
+  "that a class cannot be inherited from.",
   SECTION(
     "final virtual member functions",
     std::cout << GIVEN[0] << std::endl;

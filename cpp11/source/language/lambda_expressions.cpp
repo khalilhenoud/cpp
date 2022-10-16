@@ -17,9 +17,8 @@
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#lambda-expressions\n"
-  "https://stackoverflow.com/questions/2431596/modifying-reference-member-from-const-member-function-in-c\n")
+  "https://stackoverflow.com/questions/2431596/modifying-reference-member-from-const-member-function-in-c")
 
-//<<
 namespace {
 struct capture_this {
   void print_me(void)
@@ -32,9 +31,7 @@ struct capture_this {
   const char* name = "does have access to 'this'";
 };
 }
-//>>
 
-//<<
 namespace {
 // C++14 the function could have been declared 'decltype(auto)' or 'auto'.
 template<class Func, class... Args>
@@ -43,13 +40,12 @@ auto func_call(Func&& func, Args&&... args) -> decltype(func(args...))
   return func(args...);
 }
 }
-//>>
 
 TEST(
   lamba_expressions,
   "A lambda is an unnamed function object capable of capturing variables in\n" 
   "scope. It features: a capture list; an optional set of parameters with an\n"
-  "optional trailing return type; and a body.\n",
+  "optional trailing return type; and a body.",
   SECTION(
     "[] - captures nothing.",
     IN(std::cout << []() { return "Lambda with no capture clause."; }() << std::endl;)
@@ -96,7 +92,7 @@ TEST(
 
 TEST(
   usage_examples,
-  "More examples, in particular with regards on lambda assignment.\n",
+  "More examples, in particular with regards on lambda assignment.",
   SECTION(
     "A lambda is an unnamed functor, we can use 'auto' to capture it. A lamba\n"
     "expression is a prvalue.",

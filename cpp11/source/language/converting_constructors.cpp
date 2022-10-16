@@ -18,9 +18,8 @@
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#converting-constructors\n"
-  "https://stackoverflow.com/questions/15077466/what-is-a-converting-constructor-in-c-what-is-it-for\n")
+  "https://stackoverflow.com/questions/15077466/what-is-a-converting-constructor-in-c-what-is-it-for")
 
-//<<
 namespace {
 struct A {
   A(int32_t _i, int32_t _j, int32_t _k)
@@ -32,9 +31,7 @@ struct A {
   int32_t i = 0, j = 0, k = 0;
 };
 }
-//>>
 
-//<<
 namespace {
 struct B {
   B(int32_t _i, int32_t _j, int32_t _k)
@@ -57,7 +54,6 @@ struct B {
   int32_t i[3] = { 0 };
 };
 }
-//>>
 
 #pragma warning(push)
 #pragma warning(disable:4244)
@@ -66,7 +62,7 @@ TEST(
   converting_constructors,
   "Converting constructors will convert values of braced list syntax into\n" 
   "constructor arguments. Note that the braced list syntax does not allow\n" 
-  "narrowing\n",
+  "narrowing.",
   SECTION(
     "basic example",
     std::cout << GIVEN[0] << std::endl;

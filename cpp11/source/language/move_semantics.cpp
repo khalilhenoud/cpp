@@ -18,12 +18,12 @@
 #include "utilities\classes\carray.h"
 
 
-REFERENCES("https://stackoverflow.com/questions/7510182/how-does-stdmove-transfer-values-into-rvalues\n")
+REFERENCES("https://stackoverflow.com/questions/7510182/how-does-stdmove-transfer-values-into-rvalues")
 
 QUESTIONS(
   "Why should the move constructor and move assignment operator be declared\n"
   "noexcept?\n"
-  "https://stackoverflow.com/questions/18085383/c11-rvalue-reference-calling-copy-constructor-too\n")
+  "https://stackoverflow.com/questions/18085383/c11-rvalue-reference-calling-copy-constructor-too")
 
 TEST(
   move_semantics,
@@ -32,7 +32,7 @@ TEST(
   "lvalue. Create a class with r/lvalue semantics, who's functions echo to\n"
   "stdout when called (for identification). Test which function is called\n"
   "depending on the value category of the parameter, i.e: xvalue, prvalue,\n"
-  "lvalues.\n",
+  "lvalues.",
   SECTION("copy assign operator",
     IN(named<false> alex("alex", false);)
     IN(named<false> mike("mike", false);)
@@ -77,7 +77,7 @@ TEST(
   performance_test,
   "Performance testing. Use move semantics with stl containers, and time the \n"
   "result. Use move semantics with a user supplied custom class and see the\n" 
-  "result.\n",
+  "result.",
   SECTION("copy vs move with std::vector",
     IN_TIMED(std::vector<int> elems(1000000);)
     IN_TIMED(auto copyop = elems;)

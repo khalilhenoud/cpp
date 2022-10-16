@@ -14,18 +14,18 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#trailing-return-types\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#trailing-return-types")
 
-//<<
+namespace {
 auto return_float() -> float 
 {
   return 1.5f;
 }
 
 auto&& one = []() -> int { return 1; };
-//>>
+}
 
-//<<
+namespace {
 // NOTE: This does not compile!
 // template <typename T, typename U>
 // decltype(a + b) add(T a, U b) {
@@ -37,12 +37,12 @@ auto add(T a, L b) -> decltype(a + b)
 {
   return a + b;
 }
-//>>
+}
 
 TEST(
   trailing_return_types,
   "C++11 allows functions and lambdas an alternative syntax for specifying their\n" 
-  "return types.\n",
+  "return types.",
   SECTION(
     "basic examples",
     std::cout << GIVEN[0] << std::endl;

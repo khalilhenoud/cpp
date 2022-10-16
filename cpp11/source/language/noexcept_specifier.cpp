@@ -17,7 +17,6 @@
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#noexcept-specifier")
 
-//<<
 namespace {
 void func1() noexcept {}        // does not throw
 void func2() noexcept(true) {}  // does not throw
@@ -44,7 +43,6 @@ void func6() noexcept
   func4();
 }
 }
-//>>
 
 TEST(
   noexcept_specifier,
@@ -53,7 +51,7 @@ TEST(
   "Non-throwing functions are permitted to call potentially-throwing functions.\n" 
   "Whenever an exception is thrown and the search for a handler encounters the\n" 
   "outermost block of a non-throwing function, the function std::terminate() is\n" 
-  "called.\n",
+  "called.",
   SECTION(
     "basic example",
     std::cout << GIVEN[0] << std::endl;

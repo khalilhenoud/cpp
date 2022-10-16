@@ -25,9 +25,14 @@ using test_function = section_map(*)(const char*, std::string section);
 using feature_tests = std::unordered_map<std::string, test_function>;
 
 struct registrar {
+  static const std::string library;
+  static const std::string language;
+
   static std::unordered_map<std::string, feature_tests> s_tests;
+  static std::unordered_map<std::string, feature_tests> s_library_tests;
   
   registrar(
+    const std::string& directory,
     const std::string& feature, 
     test_function func, 
     const std::string& test_name);
@@ -36,18 +41,22 @@ struct registrar {
   run_all_tests();
 
   static std::vector<std::string> 
-  get_tests(const std::string& feature);
+  get_tests(
+    const std::string& feature, 
+    bool language = true);
 
   static std::vector<std::string> 
   get_test_sections(
     const std::string& feature, 
-    const std::string& test);
+    const std::string& test,
+    bool language = true);
 
   static void 
   run_test(
     const std::string& feature, 
     const std::string& test, 
-    const std::string& section);
+    const std::string& section,
+    bool language = true);
 };
 
 
@@ -71,7 +80,7 @@ static section_map testname(const char* name, std::string section) \
     std::cout << title << ":" << std::endl;  \
     std::cout << std::string(strlen(name) + 1, '-') << std::endl; \
     std::cout << description; \
-    std::cout << std::endl; \
+    std::cout << std::endl << std::endl; \
   } \
   __VA_ARGS__ \
   if (name != nullptr && sections.find(section) != sections.end()) \
@@ -85,7 +94,7 @@ static section_map testname(const char* name, std::string section) \
   } \
   return sections; \
 } \
-static registrar test##testname(get_short_name(__FILE__), testname, #testname);
+static registrar test##testname(get_directory_name(__FILE__), get_short_name(__FILE__), testname, #testname);
 
 #define REFERENCES(description) TEST(references, description, ;)
 #define QUESTIONS(description) TEST(questions, description, ;)

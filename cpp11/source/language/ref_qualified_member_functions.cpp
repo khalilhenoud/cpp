@@ -14,9 +14,8 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#ref-qualified-member-functions\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#ref-qualified-member-functions")
 
-//<<
 namespace {
 struct foo {
   int32_t get_value()& { return 1; }
@@ -25,12 +24,11 @@ struct foo {
   int32_t get_value() const&& { return 4; }
 };
 }
-//>>
 
 TEST(
   ref_qualified_member_functions,
   "Member functions can now be qualified depending on whether '*this' is an\n"
-  "lvalue or rvalue reference.\n",
+  "lvalue or rvalue reference.",
   SECTION(
     "basic example",
     std::cout << GIVEN[0] << std::endl;

@@ -16,9 +16,8 @@
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#inline-namespaces\n"
-  "https://en.cppreference.com/w/cpp/language/namespace\n")
+  "https://en.cppreference.com/w/cpp/language/namespace")
 
-//<<
 namespace {
 namespace Program {
 namespace Version1 {
@@ -33,7 +32,6 @@ const char* getInfo() { return "inline namespaces!!"; }
 }
 }
 }
-//>>
 
 TEST(
   inline_namespaces,
@@ -41,7 +39,7 @@ TEST(
   "parent namespace, allowing specialization of functions and easing the\n" 
   "process of versioning. This is a transitive property, if A contains B,\n" 
   "which in turn contains C and both B and C are inline namespaces, C's members\n" 
-  "can be used as if they were on A.\n",
+  "can be used as if they were on A.",
   SECTION(
     "basic examples",
     std::cout << GIVEN[0] << std::endl;

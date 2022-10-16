@@ -21,11 +21,10 @@ REFERENCES(
   "2- https://stackoverflow.com/questions/8542873/c11-auto-semantics\n"
   "3- https://en.cppreference.com/w/cpp/language/auto\n"
   "4- https://stackoverflow.com/questions/7138588/c11-auto-what-if-it-gets-a-constant-reference\n"
-  "5- https://stackoverflow.com/questions/28621844/is-there-a-typeid-for-references\n")
+  "5- https://stackoverflow.com/questions/28621844/is-there-a-typeid-for-references")
 
-EXERCISES("https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c\n")
+EXERCISES("https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c")
 
-//<<
 namespace {
 // 'auto' in template return type, this is very powerful. Note that the trailing
 // return type has access to its parameters, and 'this' when appropriate.
@@ -35,14 +34,13 @@ auto mul(U u, V v) -> decltype(u* v)
   return u * v;
 }
 }
-//>>
 
 TEST(
   auto_placeholder_type_deduction,
   "'typeid' loses references and top level cv for anything but pointer\n"
   "referenced types. See reference(5).\n"
   "'auto' never evaluates to a reference, and const is only maintained for\n"
-  "referenced types (const int*, const int&). See reference(4).\n",
+  "referenced types (const int*, const int&). See reference(4).",
   SECTION(
     "simple types",
     IN(auto d = 0.2;)

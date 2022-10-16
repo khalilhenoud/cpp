@@ -19,9 +19,8 @@ REFERENCES(
   "[1] https://github.com/AnthonyCalandra/modern-cpp-features#special-member-functions-for-move-semantics\n"
   "[2] https://stackoverflow.com/questions/9029368/is-return-value-always-a-temporary\n"
   "[3] https://en.cppreference.com/w/cpp/language/return#Notes\n"
-  "[4] https://en.cppreference.com/w/cpp/language/copy_elision\n")
+  "[4] https://en.cppreference.com/w/cpp/language/copy_elision")
 
-//<<
 namespace {
 // @see utilities\classes\named.h for the definition of the named class.
 using namedA = named<true>;
@@ -38,13 +37,12 @@ namedA g()
   return namedA{};
 }
 }
-//>>
 
 TEST(
   special_member_functions_for_move_semantics,
   "The copy constructor and copy assignment operator are called when copies are\n"
   "made, and with C++11's introduction of move semantics, there is now a move\n"
-  "constructor and move assignment operator for moves.\n",
+  "constructor and move assignment operator for moves.",
   SECTION(
     "basic example",
     std::cout << GIVEN[0] << std::endl;

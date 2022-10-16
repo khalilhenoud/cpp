@@ -14,9 +14,8 @@
 #include <iostream>
 
 
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#explicit-conversion-functions\n")
+REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#explicit-conversion-functions")
 
-//<<
 namespace {
 struct A {
   operator bool() const { return false; }
@@ -26,11 +25,10 @@ struct B {
   explicit operator bool() const { return true; }
 };
 }
-//>>
 
 TEST(
   explicit_conversion_functions,
-  "Conversion functions can now be made explicit using the explicit specifier.\n",
+  "Conversion functions can now be made explicit using the explicit specifier.",
   SECTION(
     "basic_example",
     std::cout << GIVEN[0] << std::endl;

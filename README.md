@@ -18,6 +18,7 @@ this on any other platform.
 ### Executing program
 
 ```
+cmake -B build
 cmake --build build
 build\cpp11\Debug\CPP11
 ```

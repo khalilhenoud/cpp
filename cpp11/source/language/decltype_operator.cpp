@@ -12,7 +12,6 @@
 #include "utilities\registrar.h"
 
 #include <iostream>
-//<<
 #include <string>
 #include <cstdlib>
 #include <typeinfo>
@@ -53,9 +52,7 @@ std::string type_name()
   return r;
 }
 }
-//>>
 
-//<<
 namespace {
 template <typename X, typename Y>
 auto add(X x, Y y) -> decltype(x + y)
@@ -63,18 +60,17 @@ auto add(X x, Y y) -> decltype(x + y)
   return x + y;
 }
 }
-//>>
 
 REFERENCES(
   "https://github.com/AnthonyCalandra/modern-cpp-features#decltype\n"
   "https://stackoverflow.com/questions/16637945/empirically-determine-value-category-of-c11-expression\n"
-  "https://stackoverflow.com/questions/14115744/significance-of-parentheses-in-decltypec\n")
+  "https://stackoverflow.com/questions/14115744/significance-of-parentheses-in-decltypec")
 
 TEST(
   basics,
   "decltype is an operator which returns the declared type of an expression\n"
   "passed to it. cv-qualifiers and references are maintained if they are part\n"
-  "of the expression.\n",
+  "of the expression.",
   SECTION(
     "Example with named variables",
     std::cout << GIVEN[0] << std::endl;
