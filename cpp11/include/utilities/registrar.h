@@ -12,15 +12,17 @@
 
 #include "utilities\utils.h"
 
+#include <algorithm>
 #include <unordered_map>
 #include <string>
 #include <vector>
 #include <iostream>
 #include <functional>
 #include <cassert>
+#include <utility>
 
 
-using section_map = std::unordered_map<std::string, std::function<void()>>;
+using section_map = std::pair<std::vector<std::string>, std::unordered_map<std::string, std::function<void()>>>;
 using test_function = section_map(*)(const char*, std::string section);
 using feature_tests = std::unordered_map<std::string, test_function>;
 
@@ -59,10 +61,16 @@ struct registrar {
     bool language = true);
 };
 
+inline void add_unique(std::vector<std::string>& sections, std::string section)
+{
+  if (std::find(sections.begin(), sections.end(), section) == sections.end())
+      sections.push_back(section);
+}
 
 #define SECTION(sectionname, code) \
 { \
-  sections[sectionname] = [=](){ \
+  add_unique(sections.first, sectionname); \
+  sections.second[sectionname] = [=](){ \
     code \
   }; \
 }
@@ -83,13 +91,13 @@ static section_map testname(const char* name, std::string section) \
     std::cout << std::endl << std::endl; \
   } \
   __VA_ARGS__ \
-  if (name != nullptr && sections.find(section) != sections.end()) \
+  if (name != nullptr && sections.second.find(section) != sections.second.end()) \
   { \
     std::cout << section << std::endl; \
     auto length = section.find_first_of('\n', 0); \
     length = length == std::string::npos ? section.length() : length; \
     std::cout << std::string(length, '-') << std::endl; \
-    sections[section]();  \
+    sections.second[section]();  \
     std::cout << std::endl; \
   } \
   return sections; \

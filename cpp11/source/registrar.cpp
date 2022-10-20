@@ -53,7 +53,7 @@ registrar::run_all_tests()
     for (auto& test : feature_tests.second)
     {
       // prints the description and returns the section map.
-      auto sections = test.second(test.first.c_str(), "");
+      auto sections = test.second(test.first.c_str(), "").second;
       for (auto& section : sections)
         test.second(test.first.c_str(), section.first);
     }
@@ -112,10 +112,7 @@ registrar::get_test_sections(
       });
 
     assert(func_iter != repo[feature].end());
-
-    auto test_sections = func_iter->second(nullptr, "");
-    for (auto& section : test_sections)
-      sections.push_back(section.first);
+    sections = func_iter->second(nullptr, "").first;
   }
 
   return sections;
@@ -140,7 +137,7 @@ registrar::run_test(
     
     if (test_iter != tests.end())
     {
-      auto test_sections = test_iter->second(test_iter->first.c_str(), "");
+      auto test_sections = test_iter->second(test_iter->first.c_str(), "").second;
       if (test_sections.find(section) != test_sections.end())
         test_iter->second(test_iter->first.c_str(), section.c_str());
     }
