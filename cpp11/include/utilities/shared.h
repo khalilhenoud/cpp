@@ -93,7 +93,7 @@
   x;
 
 #define DESC_IN(desc, x) \
-  std::cout << desc << std::endl; \
+  std::cout << "// " << desc << std::endl; \
   PRINTIFY(x, std::endl) \
   x;
 

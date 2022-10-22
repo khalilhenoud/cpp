@@ -51,7 +51,10 @@ add_executable(${PROJECT_NAME}
       ./source/library/forward.cpp
       ./source/library/to_string.cpp
       ./source/library/type_traits.cpp
-      ./source/library/array.cpp)
+      ./source/library/array.cpp
+      ./source/library/tuple.cpp
+      ./source/library/tie.cpp
+      ./source/library/begin_end.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
