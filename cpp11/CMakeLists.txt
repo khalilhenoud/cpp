@@ -54,7 +54,12 @@ add_executable(${PROJECT_NAME}
       ./source/library/array.cpp
       ./source/library/tuple.cpp
       ./source/library/tie.cpp
-      ./source/library/begin_end.cpp)
+      ./source/library/begin_end.cpp
+      ./source/library/unordered_containers.cpp
+      ./source/library/chrono.cpp
+      ./source/library/ref.cpp
+      ./source/library/make_shared.cpp
+      ./source/library/smart_pointers.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
