@@ -59,7 +59,10 @@ add_executable(${PROJECT_NAME}
       ./source/library/chrono.cpp
       ./source/library/ref.cpp
       ./source/library/make_shared.cpp
-      ./source/library/smart_pointers.cpp)
+      ./source/library/smart_pointers.cpp
+      ./source/library/forward_list.cpp
+      ./source/library/function.cpp
+      ./source/library/random.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
