@@ -47,6 +47,8 @@ add_executable(${PROJECT_NAME}
 			./source/language/type_aliases.cpp
 			./source/language/user_defined_literals.cpp
 			./source/language/variadic_templates.cpp
+      ./source/language/alignas_alignof.cpp
+      ./source/language/sizeof_member_variables.cpp
       ./source/library/move.cpp
       ./source/library/forward.cpp
       ./source/library/to_string.cpp
@@ -62,7 +64,8 @@ add_executable(${PROJECT_NAME}
       ./source/library/smart_pointers.cpp
       ./source/library/forward_list.cpp
       ./source/library/function.cpp
-      ./source/library/random.cpp)
+      ./source/library/random.cpp
+      ./source/library/regex.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"

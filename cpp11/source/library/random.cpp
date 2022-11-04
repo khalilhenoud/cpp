@@ -28,7 +28,7 @@ TEST(
   "engine that contains the random number generator's state and produces the\n" 
   "pseudorandom numbers; and a distribution, which determines the range and\n" 
   "mathematical distribution of the outcome. These two are combined to form a\n" 
-  "random number generator object.\n"
+  "random number generator object.\n\n"
   "Unlike the C standard rand, the C++11 mechanism will come with three base\n" 
   "generator engine algorithms:\n"
   " - linear_congruential_engine\n"
