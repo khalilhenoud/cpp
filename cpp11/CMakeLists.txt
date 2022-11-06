@@ -50,6 +50,7 @@ add_executable(${PROJECT_NAME}
       ./source/language/alignas_alignof.cpp
       ./source/language/sizeof_member_variables.cpp
       ./source/language/unrestricted_unions.cpp
+      ./source/language/thread_local_storage.cpp
       ./source/library/move.cpp
       ./source/library/forward.cpp
       ./source/library/to_string.cpp
