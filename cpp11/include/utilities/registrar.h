@@ -91,6 +91,7 @@ static section_map testname(const char* name, std::string section) \
     std::cout << std::endl << std::endl; \
   } \
   __VA_ARGS__ \
+  assert(sections.second.size() != 0 && "Please wrap your code in a section!!!"); \
   if (name != nullptr && sections.second.find(section) != sections.second.end()) \
   { \
     std::cout << section << std::endl; \
