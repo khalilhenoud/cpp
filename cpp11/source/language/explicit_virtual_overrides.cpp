@@ -45,9 +45,12 @@ TEST(
   "Specifies that a virtual function overrides another virtual function. If the\n" 
   "virtual function does not override a parent's virtual function, throws a\n" 
   "compiler error.",
-  std::cout << GIVEN[0] << std::endl;
-  IN(B b;)
-  IN(A* ptr = &b;)
-  IN(std::cout << '\t' << ptr->foo() << std::endl;)
+  SECTION(
+    "example",
+    std::cout << GIVEN[0] << std::endl;
+    IN(B b;)
+    IN(A* ptr = &b;)
+    IN(std::cout << '\t' << ptr->foo() << std::endl;)
+  )
 )
 

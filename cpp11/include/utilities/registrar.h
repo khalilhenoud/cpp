@@ -75,6 +75,9 @@ inline void add_unique(std::vector<std::string>& sections, std::string section)
   }; \
 }
 
+#define RESERVED_NAME "_?!reserved"
+#define RESERVED_SECTION SECTION(RESERVED_NAME, {;})
+
 #define TEST(testname, description, ...)  \
 static section_map testname(const char* name, std::string section) \
 { \
@@ -92,7 +95,7 @@ static section_map testname(const char* name, std::string section) \
   } \
   __VA_ARGS__ \
   assert(sections.second.size() != 0 && "Please wrap your code in a section!!!"); \
-  if (name != nullptr && sections.second.find(section) != sections.second.end()) \
+  if (name != nullptr && section != RESERVED_NAME && sections.second.find(section) != sections.second.end()) \
   { \
     std::cout << section << std::endl; \
     auto length = section.find_first_of('\n', 0); \
@@ -105,7 +108,7 @@ static section_map testname(const char* name, std::string section) \
 } \
 static registrar test##testname(get_directory_name(__FILE__), get_short_name(__FILE__), testname, #testname);
 
-#define REFERENCES(description) TEST(references, description, ;)
-#define QUESTIONS(description) TEST(questions, description, ;)
-#define EXERCISES(description) TEST(exercises, description, ;)
-#define TODO(description) TEST(todos, description, ;)
+#define REFERENCES(description) TEST(references, description, RESERVED_SECTION)
+#define QUESTIONS(description) TEST(questions, description, RESERVED_SECTION)
+#define EXERCISES(description) TEST(exercises, description, RESERVED_SECTION)
+#define TODO(description) TEST(todos, description, RESERVED_SECTION)

@@ -29,7 +29,7 @@ TEST(
   "Constructors can now call other constructors in the same class using an\n"
   "initializer list.",
   SECTION(
-    "basic",
+    "example",
     std::cout << GIVEN[0] << std::endl;
     IN(Foo foo;)
     IN(std::cout << '\t' << foo.i << std::endl;)

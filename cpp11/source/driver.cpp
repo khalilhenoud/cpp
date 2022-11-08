@@ -208,17 +208,17 @@ int32_t main()
     if (auto entry = get_user_input(index_to_options)) {
       auto& option = index_to_options[entry];
 
-      // run the test.
       if (
+        // run the test if there is only one section
         options.size() == 2 &&
         get_options(
           options[0] == registrar::language, 
           options[1], 
-          option).size() == 0) {
+          option).size() == 1) {
           registrar::run_test(
             options[1], 
             option, 
-            "", 
+            get_options(options[0] == registrar::language, options[1], option)[1], 
             options[0] == registrar::language);
           hang_till_newline();
       }
