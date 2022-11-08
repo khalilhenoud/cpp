@@ -83,6 +83,31 @@
     return sections; \
   }()
 
+#define BLOCK_GIVEN \
+  []() \
+  { \
+    std::vector<std::string> sections; \
+  \
+    std::ifstream codefile(__FILE__); \
+    std::stringstream buffer; \
+    buffer << codefile.rdbuf(); \
+  \
+    std::string code = buffer.str(); \
+    std::string delimiters[] = {"//<<", "//>>"}; \
+  \
+    size_t start = 0, end = 0; \
+    while ( \
+      (start = code.find(delimiters[0], start)) != std::string::npos && \
+      code.at(start + delimiters[0].length()) != '"') { \
+      start = code.find_first_of('\n', start) + 1; \
+      end = code.find(delimiters[1], start); \
+      sections.push_back(code.substr(start, end - start)); \
+      start = end; \
+    } \
+  \
+    return sections; \
+  }()
+
 
 // use it to escape ',' in undesired macro sequences.
 #define PROTECT(...) __VA_ARGS__ 
