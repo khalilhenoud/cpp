@@ -67,7 +67,9 @@ add_executable(${PROJECT_NAME}
       ./source/library/forward_list.cpp
       ./source/library/function.cpp
       ./source/library/random.cpp
-      ./source/library/regex.cpp)
+      ./source/library/regex.cpp
+      ./source/library/thread.cpp
+      ./source/library/async.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
