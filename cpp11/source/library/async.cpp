@@ -98,6 +98,7 @@ TEST(
   )
   SECTION(
     "policy examples",
+    std::cout << GIVEN[2] << std::endl;
     IN(X x;)
     DESC_IN(
       "default policy call, implementation dependant",
@@ -107,7 +108,7 @@ TEST(
       auto a2 = std::async(std::launch::deferred, &X::bar, &x, "world!");)
     DESC_IN(
       "async policy, usually evaluated on a separate thread",
-      auto a3 = std::async(std::launch::async, X(), 43);)
+      auto a3 = std::async(std::launch::async, &X::operator(), x, 43);)
     IN(a2.wait());
     IN(std::cout << a3.get() << std::endl;)
     std::cout << "// if a1 is not done at this point, destructor of a1 prints \"Hello 42\" here" << std::endl;
