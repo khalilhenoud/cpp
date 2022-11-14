@@ -69,7 +69,11 @@ add_executable(${PROJECT_NAME}
       ./source/library/random.cpp
       ./source/library/regex.cpp
       ./source/library/thread.cpp
-      ./source/library/async.cpp)
+      ./source/library/async.cpp
+      ./source/library/mutex.cpp
+      ./source/library/timed_mutex.cpp
+      ./source/library/recursive_mutex.cpp
+      ./source/library/recursive_timed_mutex.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
