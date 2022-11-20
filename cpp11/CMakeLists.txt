@@ -73,7 +73,13 @@ add_executable(${PROJECT_NAME}
       ./source/library/mutex.cpp
       ./source/library/timed_mutex.cpp
       ./source/library/recursive_mutex.cpp
-      ./source/library/recursive_timed_mutex.cpp)
+      ./source/library/recursive_timed_mutex.cpp
+      ./source/library/lock_guard.cpp
+      ./source/library/unique_lock.cpp
+      ./source/library/lock.cpp
+      ./source/library/try_lock.cpp
+      ./source/library/lock_tag.cpp
+      ./source/library/call_once.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
