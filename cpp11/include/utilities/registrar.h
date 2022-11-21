@@ -110,5 +110,6 @@ static registrar test##testname(get_directory_name(__FILE__), get_short_name(__F
 
 #define REFERENCES(description) TEST(references, description, RESERVED_SECTION)
 #define QUESTIONS(description) TEST(questions, description, RESERVED_SECTION)
+#define NOTES(description) TEST(notes, description, RESERVED_SECTION)
 #define EXERCISES(description) TEST(exercises, description, RESERVED_SECTION)
 #define TODO(description) TEST(todos, description, RESERVED_SECTION)
