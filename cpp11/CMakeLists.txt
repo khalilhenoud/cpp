@@ -80,7 +80,8 @@ add_executable(${PROJECT_NAME}
       ./source/library/try_lock.cpp
       ./source/library/lock_tag.cpp
       ./source/library/call_once.cpp
-      ./source/library/condition_variable.cpp)
+      ./source/library/condition_variable.cpp
+      ./source/library/notify_all_at_thread_exit.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
