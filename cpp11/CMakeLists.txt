@@ -79,7 +79,8 @@ add_executable(${PROJECT_NAME}
       ./source/library/lock.cpp
       ./source/library/try_lock.cpp
       ./source/library/lock_tag.cpp
-      ./source/library/call_once.cpp)
+      ./source/library/call_once.cpp
+      ./source/library/condition_variable.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"

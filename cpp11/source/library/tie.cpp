@@ -30,7 +30,7 @@ TEST(
     IN(std::cout << '\t' << "name: " << name << std::endl;)
     std::cout << std::endl;
     DESC_IN("with pair", PROTECT(const char* yes, *no;))
-    IN(PROTECT(std::tie(yes, no) = std::make_pair("yes", "maybe");))
+    IN(PROTECT(std::tie(yes, no) = std::make_pair("yes", "no");))
     IN(std::cout << "\tchoices: " << yes << ", " << no << std::endl;)
   )
 )

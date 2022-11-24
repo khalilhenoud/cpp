@@ -63,7 +63,7 @@ void do_once(bool do_throw)
 
 TEST(
   call_once,
-  "Executes the Callable object f exactly once, even if called concurrently,\n" 
+  "Executes the callable object f exactly once, even if called concurrently,\n" 
   "from several threads. In detail:\n"
   " - If, by the time call_once is called, flag indicates that f was already\n" 
   "   called, call_once returns right away (such a call to call_once is known as\n" 
