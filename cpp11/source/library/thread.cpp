@@ -61,7 +61,15 @@ TEST(
   "The std::thread library provides a standard way to control threads, such as\n" 
   "spawning and killing them. In the example below, multiple threads are spawned\n" 
   "to do different calculations and then the program waits for all of them to\n" 
-  "finish.",
+  "finish.\n"
+  "note:\n" 
+  " - The arguments to the thread function are moved or copied by value. If a\n" 
+  "   reference argument needs to be passed to the thread function, it has to be\n" 
+  "   wrapped (e.g., with std::ref or std::cref).\n"
+  " - Any return value from the function is ignored. If the function throws an\n" 
+  "   exception, std::terminate is called. In order to pass return values or\n" 
+  "   exceptions back to the calling thread, std::promise or std::async may be\n" 
+  "   used.",
   SECTION(
     "thread example and this_thread functionality",
     std::cout << GIVEN[0] << std::endl;

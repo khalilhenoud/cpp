@@ -17,7 +17,10 @@
 #include <functional>
 
 
-REFERENCES("https://en.cppreference.com/w/cpp/thread/unique_lock")
+REFERENCES(
+  "https://en.cppreference.com/w/cpp/thread/unique_lock\n"
+  "https://stackoverflow.com/questions/34078208/passing-object-by-reference-to-stdthread-in-c11")
+
 
 namespace {
 struct Box {

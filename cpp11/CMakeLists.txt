@@ -81,7 +81,11 @@ add_executable(${PROJECT_NAME}
       ./source/library/lock_tag.cpp
       ./source/library/call_once.cpp
       ./source/library/condition_variable.cpp
-      ./source/library/notify_all_at_thread_exit.cpp)
+      ./source/library/notify_all_at_thread_exit.cpp
+      ./source/library/promise.cpp
+      ./source/library/future.cpp
+      ./source/library/shared_future.cpp
+      ./source/library/packaged_task.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"
