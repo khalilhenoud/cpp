@@ -90,8 +90,9 @@ static section_map testname(const char* name, std::string section) \
     std::replace(std::begin(title), std::end(title), '_', ' '); \
     std::cout << title << ":" << std::endl;  \
     std::cout << std::string(strlen(name) + 1, '-') << std::endl; \
-    std::cout << description; \
-    std::cout << std::endl << std::endl; \
+    int32_t offset = description[0] == '\n' ? 1 : 0; \
+    std::cout << description + offset; \
+    std::cout << std::endl; \
   } \
   __VA_ARGS__ \
   assert(sections.second.size() != 0 && "Please wrap your code in a section!!!"); \

@@ -23,14 +23,14 @@
 void hang_till_newline()
 {
   std::cout << "...press enter to continue..." << std::ends;
-  constexpr uint32_t buffer_size = 80;
+  constexpr uint32_t buffer_size = LINE_WIDTH;
   char buffer[buffer_size] = { 0 };
   fgets(buffer, buffer_size, stdin);
 }
 
 uint32_t get_user_input(std::unordered_map<uint32_t, std::string> &index_to_option)
 {
-  constexpr uint32_t buffer_size = 80;
+  constexpr uint32_t buffer_size = LINE_WIDTH;
   char buffer[buffer_size] = { 0 };
   uint32_t entry = 0;
 
@@ -182,9 +182,9 @@ int32_t main()
     }
 
     // print all the options.
-    std::cout << std::string(80, '/') << std::endl;
+    std::cout << std::string(LINE_WIDTH, '/') << std::endl;
     std::cout << "// " << title << std::endl;
-    std::cout << std::string(80, '/') << std::endl;
+    std::cout << std::string(LINE_WIDTH, '/') << std::endl;
     for (uint32_t i = 0, count = (uint32_t)index_to_options.size(); i < count; ++i) {
       std::string trimmed = index_to_options[i + 1];
       

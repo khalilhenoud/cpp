@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # add the executable
 add_executable(${PROJECT_NAME} 
 			./source/driver.cpp
-      ./source/registrar.cpp
-      ./source/utils.cpp
+			./source/registrar.cpp
+			./source/utils.cpp
 			./source/language/attributes.cpp
 			./source/language/auto.cpp
 			./source/language/char32_t_and_char16_t.cpp
@@ -85,7 +85,8 @@ add_executable(${PROJECT_NAME}
       ./source/library/promise.cpp
       ./source/library/future.cpp
       ./source/library/shared_future.cpp
-      ./source/library/packaged_task.cpp)
+      ./source/library/packaged_task.cpp
+      ./source/library/memory_order.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"

@@ -15,6 +15,7 @@
 #include <mutex>
 #include <thread>
 #include <vector>
+#include <memory>
 
 
 REFERENCES(
@@ -33,28 +34,28 @@ NOTES(
 
 namespace {
 // for each flag, exactly one function gets executed successfully once
-std::once_flag flag1, flag2;
+std::unique_ptr<std::once_flag> flag1, flag2;
 
 void simple_do_once()
 {
-  std::call_once(flag1, [](){
-    std::cout << "simple example, called once" << std::endl;
+  std::call_once(*flag1, [](){
+    print_safe("simple example, called once\n");
   });
 }
 
 void may_throw_function(bool do_throw)
 {
   if (do_throw) {
-    std::cout << "did throw: call_once will retry" << std::endl;
+    print_safe("did throw: call_once will retry\n");
     throw std::exception();
   }
-  std::cout << "didn't throw: call once will not attempt again" << std::endl;
+  print_safe("didn't throw: call once will not attempt again\n");
 }
 
 void do_once(bool do_throw)
 {
   try {
-    std::call_once(flag2, may_throw_function, do_throw);
+    std::call_once(*flag2, may_throw_function, do_throw);
   }
   catch (...) {
   }
@@ -82,6 +83,8 @@ TEST(
   SECTION(
     "call_once is closely related to double-checked locking programming pattern",
     std::cout << GIVEN[0] << std::endl;
+    IN(PROTECT(flag1 = std::make_unique<std::once_flag>();))
+    IN(PROTECT(flag2 = std::make_unique<std::once_flag>();))
     IN(std::vector<std::thread> threads_vector;)
     IN(threads_vector.emplace_back(simple_do_once);)
     IN(threads_vector.emplace_back(simple_do_once);)
@@ -89,7 +92,7 @@ TEST(
     IN(threads_vector.emplace_back(simple_do_once);)
     IN(for (auto& thread : threads_vector) thread.join();)
     IN(threads_vector.clear();)
-    std::cout << std::endl;
+    print_safe("\n");
     IN(threads_vector.emplace_back(do_once, true);)
     IN(threads_vector.emplace_back(do_once, true);)
     IN(threads_vector.emplace_back(do_once, false);)
