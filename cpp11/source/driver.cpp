@@ -187,6 +187,7 @@ int32_t main()
     std::cout << std::string(LINE_WIDTH, '/') << std::endl;
     for (uint32_t i = 0, count = (uint32_t)index_to_options.size(); i < count; ++i) {
       std::string trimmed = index_to_options[i + 1];
+      trimmed = trim_surrounding_spaces(trimmed.c_str());
       
       std::replace(std::begin(trimmed), std::end(trimmed), '\n', ' ');
 

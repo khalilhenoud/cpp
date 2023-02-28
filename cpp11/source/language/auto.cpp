@@ -16,19 +16,19 @@
 
 
 REFERENCES(
-  R"--(
+R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#auto
 https://stackoverflow.com/questions/8542873/c11-auto-semantics
 https://en.cppreference.com/w/cpp/language/auto
 https://stackoverflow.com/questions/7138588/c11-auto-what-if-it-gets-a-constant-reference
-https://stackoverflow.com/questions/28621844/is-there-a-typeid-for-references"
-  )--"
+https://stackoverflow.com/questions/28621844/is-there-a-typeid-for-references
+)--"
   )
 
 EXERCISES(
-  R"--(
+R"--(
 https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c
-  )--"
+)--"
   )
 
 namespace {
@@ -43,12 +43,12 @@ auto mul(U u, V v) -> decltype(u* v)
 
 TEST(
   auto_placeholder_type_deduction,
-  R"--(
+R"--(
 'typeid' loses references and top level cv for anything but pointer referenced 
 types. See reference(5).
 'auto' never evaluates to a reference, and const is only maintained for
 referenced types (const int*, const int&). See reference(4).
-  )--",
+)--",
   SECTION(
     "simple types",
     IN(auto d = 0.2;)

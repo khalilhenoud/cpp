@@ -11,14 +11,16 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <initializer_list>
 #include <cassert>
 
 
 REFERENCES(
-  "https://github.com/AnthonyCalandra/modern-cpp-features#converting-constructors\n"
-  "https://stackoverflow.com/questions/15077466/what-is-a-converting-constructor-in-c-what-is-it-for")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#converting-constructors
+https://stackoverflow.com/questions/15077466/what-is-a-converting-constructor-in-c-what-is-it-for
+)--"
+  )
 
 namespace {
 struct A {
@@ -60,20 +62,24 @@ struct B {
 
 TEST(
   converting_constructors,
-  "Converting constructors will convert values of braced list syntax into\n" 
-  "constructor arguments. Note that the braced list syntax does not allow\n" 
-  "narrowing.",
+R"--(
+Converting constructors will convert values of braced list syntax into 
+constructor arguments. Note that the braced list syntax does not allow 
+narrowing.
+)--",
   SECTION(
     "basic example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(PROTECT(A a{1, 2, 3};))
     IN_DESC(PROTECT(A b(2.f, 3.f, 4.f);), "warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data")
     IN_ERROR(PROTECT(A c{1.f, 2, 4};), "error C2398: Element '1': conversion from 'float' to 'int32_t' requires a narrowing conversion")
   )
   SECTION(
-    "Note that if a constructor accepts a std::initializer_list, it will be\n"
-    "called instead.",
-    std::cout << GIVEN[1] << std::endl;
+R"--(
+Note that if a constructor accepts a std::initializer_list, it will be called 
+instead.
+)--",
+    print_safe("%s\n", GIVEN[1].c_str());
     IN(PROTECT(B b(1, 2, 3);))
     IN(PROTECT(B c{1, 2, 3};))
     IN_ERROR(PROTECT(B d{1, 2.f, 3};), "error C2398: Element '2': conversion from 'float' to 'int32_t' requires a narrowing conversion")

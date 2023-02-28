@@ -13,10 +13,10 @@
 
 
 REFERENCES(
-  R"--(
+R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#attributes
 https://en.cppreference.com/w/cpp/language/attributes
-  )--"
+)--"
   )
 
 namespace {
@@ -29,13 +29,13 @@ namespace {
 
 TEST(
   attributes,
-  R"--(
+R"--(
 Attributes provide a universal syntax over __attribute__(...), __declspec, etc. 
 C++11 only defines 2 attributes (noreturn, carries_dependency), more attributes 
 can be supported based on the compiler. However the usage of attributes can be 
 greatly extended in the proper context, see the link below:
 https://www.codesynthesis.com/~boris/blog/2012/04/18/cxx11-generalized-attributes/
-  )--",
+)--",
   SECTION(
     "'noreturn' function example",
     print_safe("%s\n", GIVEN[0].c_str());

@@ -20,7 +20,7 @@ add_executable(${PROJECT_NAME}
 			./source/language/char32_t_and_char16_t.cpp
 			./source/language/constexpr.cpp
 			./source/language/converting_constructors.cpp
-			./source/language/decltype_operator.cpp
+      ./source/language/decltype_operator.cpp
 			./source/language/default_functions.cpp
 			./source/language/delegating_constructors.cpp
 			./source/language/deleted_functions.cpp
@@ -86,7 +86,8 @@ add_executable(${PROJECT_NAME}
       ./source/library/future.cpp
       ./source/library/shared_future.cpp
       ./source/library/packaged_task.cpp
-      ./source/library/memory_order.cpp)
+      ./source/library/memory_order.cpp
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 							"${PROJECT_BINARY_DIR}"

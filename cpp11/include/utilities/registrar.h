@@ -78,6 +78,21 @@ inline void add_unique(std::vector<std::string>& sections, std::string section)
 #define RESERVED_NAME "_?!reserved"
 #define RESERVED_SECTION SECTION(RESERVED_NAME, {;})
 
+inline
+std::string 
+trim_surrounding_spaces(const char* str)
+{
+  assert(str != nullptr);
+  std::string toprocess = str;
+  while (std::isspace(toprocess.front()))
+    toprocess.erase(0, 1);
+
+  while (std::isspace(*toprocess.rbegin()))
+    toprocess.erase(std::next(toprocess.rbegin()).base());
+
+  return toprocess;
+}
+
 #define TEST(testname, description, ...)  \
 static section_map testname(const char* name, std::string section) \
 { \
@@ -90,17 +105,17 @@ static section_map testname(const char* name, std::string section) \
     std::replace(std::begin(title), std::end(title), '_', ' '); \
     std::cout << title << ":" << std::endl;  \
     std::cout << std::string(strlen(name) + 1, '-') << std::endl; \
-    int32_t offset = description[0] == '\n' ? 1 : 0; \
-    std::cout << description + offset; \
+    std::cout << trim_surrounding_spaces(description) << std::endl; \
     std::cout << std::endl; \
   } \
   __VA_ARGS__ \
   assert(sections.second.size() != 0 && "Please wrap your code in a section!!!"); \
   if (name != nullptr && section != RESERVED_NAME && sections.second.find(section) != sections.second.end()) \
   { \
-    std::cout << section << std::endl; \
-    auto length = section.find_first_of('\n', 0); \
-    length = length == std::string::npos ? section.length() : length; \
+    std::string trimmed_section = trim_surrounding_spaces(section.c_str()); \
+    std::cout << trimmed_section << std::endl; \
+    auto length = trimmed_section.find_first_of('\n', 0); \
+    length = length == std::string::npos ? trimmed_section.length() : length; \
     std::cout << std::string(length, '-') << std::endl; \
     sections.second[section]();  \
     std::cout << std::endl; \

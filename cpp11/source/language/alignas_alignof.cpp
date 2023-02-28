@@ -13,11 +13,11 @@
 
 
 REFERENCES(
-  R"--(
+R"--(
 https://en.wikipedia.org/wiki/C%2B%2B11#Control_and_query_object_alignment
 https://en.cppreference.com/w/cpp/language/alignas
 https://stackoverflow.com/questions/36217004/query-the-alignment-of-a-specific-variable
-  )--"
+)--"
   )
 
 namespace {
@@ -29,7 +29,7 @@ bool is_aligned(const volatile void*p, std::size_t n)
 
 TEST(
   alignas_alignof,
-  R"--(
+R"--(
 C++11 allows variable alignment to be queried and controlled with alignof and  
 alignas.
 The alignof operator takes the type and returns the power of 2 byte boundary on 
@@ -39,7 +39,7 @@ returns the element type's alignment.
 The alignas specifier controls the memory alignment for a variable. The
 specifier takes a constant or a type; when supplied a type alignas(T) is
 shorthand for alignas(alignof(T)).
-  )--",
+)--",
   SECTION(
     "properly align a unsigned char array to hold a double",
     print_safe("%s\n", GIVEN[0].c_str());

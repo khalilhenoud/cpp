@@ -11,20 +11,24 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 
-
-REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#char32_t-and-char16_t")
+REFERENCES(
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#char32_t-and-char16_t
+)--"
+  )
 
 TEST(
   char32_and_char16,
-  "Provides standard types for representing UTF-8 strings.",
+R"--(
+Provides standard types for representing UTF-8 strings.
+)--",
   SECTION(
     "basic example",
     IN(char32_t utf8_str32[] = U"\u0123";)
-    IN(std::cout << '\t' << utf8_str32 << std::endl;)
+    IN(print_safe("\t%u\n", utf8_str32);)
     IN(char16_t utf8_str16[] = u"\u0123";)
-    IN(std::cout << '\t' << utf8_str16 << std::endl;)
+    IN(print_safe("\t%u\n", utf8_str16);)
   )
 )
 
