@@ -11,16 +11,13 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES(
-  "[0] https://github.com/AnthonyCalandra/modern-cpp-features#default-functions\n"
-  "[1] https://stackoverflow.com/questions/37276413/default-move-constructor-assignment-and-deleted-copy-constructor-assignment")
-
-TODO(
-  "Provide an encapsulation output functionality 'std::cout'... This becomes\n"
-  "necessary when switching to a non-console display.")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#default-functions
+https://stackoverflow.com/questions/37276413/default-move-constructor-assignment-and-deleted-copy-constructor-assignment
+)--"
+  )
 
 namespace {
 struct A {
@@ -61,26 +58,28 @@ struct C : B {
 
 TEST(
   default_functions,
-  "A more elegant, efficient way to provide a default implementation of a\n" 
-  "function, such as a constructor.",
+R"--(
+A more elegant, efficient way to provide a default implementation of a function,
+such as a constructor.
+)--",
   SECTION(
     "basics",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(PROTECT(A a, b;))
-    IN(std::cout << '\t' << a.i << std::ends << b.i << std::endl;)
+    IN(print_safe("\t%i %i\n", a.i, b.i);)
     IN(b.i = 111;)
     IN(A c(b);)
-    IN(std::cout << '\t' << c.i << std::endl;)
+    IN(print_safe("\t%i\n", c.i);)
     IN_DESC(b = std::move(a);, "since move assignment is deleted implicitely, copy assignment operator is used!")
   )
   SECTION(
     "defaulted functions in inheritance context",
-    std::cout << GIVEN[1] << std::endl;
+    print_safe("%s\n", GIVEN[1].c_str());
     IN(B b;)
     IN_ERROR(B b2(b);, "error C2280: 'B::B(const B &)': attempting to reference a deleted function")
     IN(B b2;)
     IN_ERROR(b2 = b;, "error C2280: 'B &B::operator =(const B &)': attempting to reference a deleted function")
-    std::cout << std::endl;
+    print_safe("\n");
     IN(C c;)
     IN_ERROR(C c2 = c;, "error C2280: 'C::C(const C &)': attempting to reference a deleted function")
     IN(C c2;)

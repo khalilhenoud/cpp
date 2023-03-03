@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <string>
 #include <cstdlib>
 #include <typeinfo>
@@ -62,73 +61,80 @@ auto add(X x, Y y) -> decltype(x + y)
 }
 
 REFERENCES(
-  "https://github.com/AnthonyCalandra/modern-cpp-features#decltype\n"
-  "https://stackoverflow.com/questions/16637945/empirically-determine-value-category-of-c11-expression\n"
-  "https://stackoverflow.com/questions/14115744/significance-of-parentheses-in-decltypec")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#decltype
+https://stackoverflow.com/questions/16637945/empirically-determine-value-category-of-c11-expression
+https://stackoverflow.com/questions/14115744/significance-of-parentheses-in-decltypec
+)--"
+  )
 
 TEST(
   basics,
-  "decltype is an operator which returns the declared type of an expression\n"
-  "passed to it. cv-qualifiers and references are maintained if they are part\n"
-  "of the expression.",
+R"--(
+decltype is an operator which returns the declared type of an expression passed
+to it. cv-qualifiers and references are maintained if they are part of the 
+expression.
+)--",
   SECTION(
     "Example with named variables",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(int32_t i = 100;)
-    IN(std::cout << '\t' << type_name<decltype(i)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(i)>().c_str());)
     IN(const int32_t ci = 1000;)
-    IN(std::cout << '\t' << type_name<decltype(ci)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(ci)>().c_str());)
     IN(const uint32_t cui = 500u;)
-    IN(std::cout << '\t' << type_name<decltype(cui)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(cui)>().c_str());)
     IN(uint8_t u = 'a';)
-    IN(std::cout << '\t' << type_name<decltype(u)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(u)>().c_str());)
     IN(const uint8_t cu = 'b';)
-    IN(std::cout << '\t' << type_name<decltype(cu)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(cu)>().c_str());)
     IN(float f = 3.25f;)
-    IN(std::cout << '\t' << type_name<decltype(f)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(f)>().c_str());)
     IN(float& fr = f;)
-    IN(std::cout << '\t' << type_name<decltype(fr)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(fr)>().c_str());)
     IN(double d = 5.124;)
-    IN(std::cout << '\t' << type_name<decltype(d)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(d)>().c_str());)
     IN(double *ptr_d = &d;)
-    IN(std::cout << '\t' << type_name<decltype(ptr_d)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(ptr_d)>().c_str());)
     IN(const double * const cptr_cd = &d;)
-    IN(std::cout << '\t' << type_name<decltype(cptr_cd)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(cptr_cd)>().c_str());)
   )
   SECTION(
-    "decltype can return the declared type of an entity (hence the name), but\n"
-    "can also be used to query the type of an expression. However, in the latter\n"
-    "case the resulting type is 'adjusted' according to the value category of\n"
-    "that expression: an lvalue expression results in an lvalue reference type,\n"
-    "an xvalue in an rvalue reference type, and a prvalue in just the type.",
-    std::cout << GIVEN[0] << std::endl;
+R"--(
+decltype can return the declared type of an entity (hence the name), but can
+also be used to query the type of an expression. However, in the latter case the
+resulting type is 'adjusted' according to the value category of that expression:
+an lvalue expression results in an lvalue reference type, an xvalue in an rvalue
+reference type, and a prvalue in just the type.
+)--",
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(int32_t i = 2;)
     IN(const int32_t ci = 4;)
-    IN(std::cout << '\t' << type_name<decltype(1)>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype(std::move(i))>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype(i)>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype(ci)>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype((i))>() << std::endl;)
-    std::cout << std::endl;
+    IN(print_safe("\t%s\n", type_name<decltype(1)>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype(std::move(i))>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype(i)>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype(ci)>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype((i))>().c_str());)
+    print_safe("\n");
     IN(decltype(i) b = i;)
     IN(const decltype(b)& rb = b;)
     IN(int&& f = 1;)
     IN(decltype(f) m = 2;)
-    IN(std::cout << '\t' << type_name<decltype(f)>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype(m)>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype((f))>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype((rb))>() << std::endl;)
-    std::cout << std::endl;
+    IN(print_safe("\t%s\n", type_name<decltype(f)>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype(m)>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype((f))>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype((rb))>().c_str());)
+    print_safe("\n");
     IN(int32_t& k = i;)
-    IN(std::cout << '\t' << type_name<decltype(k)>() << std::endl;)
-    IN(std::cout << '\t' << type_name<decltype((k))>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(k)>().c_str());)
+    IN(print_safe("\t%s\n", type_name<decltype((k))>().c_str());)
   )
   SECTION(
     "Trailing return type usage.",
-    std::cout << GIVEN[1] << std::endl;
-    IN(std::cout << '\t' << add(1, 2.1f) << std::endl;)
+    print_safe("%s\n", GIVEN[1].c_str());
+    IN(print_safe("\t%f\n", add(1, 2.1f));)
     IN_DESC(decltype(add(1, 2.1f)) f = 2.f;, "this is prvalue decltype is 'float'")
-    IN(std::cout << '\t' << type_name<decltype(f)>() << std::endl;)
+    IN(print_safe("\t%s\n", type_name<decltype(f)>().c_str());)
   )
 )
 

@@ -17,8 +17,11 @@
 
 
 REFERENCES(
-  "https://github.com/AnthonyCalandra/modern-cpp-features#initializer-lists\n"
-  "https://en.cppreference.com/w/cpp/utility/initializer_list")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#initializer-lists
+https://en.cppreference.com/w/cpp/utility/initializer_list
+)--"
+  )
 
 namespace {
 template<class T,
@@ -31,13 +34,15 @@ T sum(const std::initializer_list<T>& list)
 
 TEST(
   initializer_list_basics,
-  "A lightweight array-like container of elements created using a \"braced list\"\n"
-  "syntax. For example, { 1, 2, 3 } creates a sequences of integers, that has \n"
-  "type std::initializer_list<int>. Useful as a replacement to passing a vector\n"
-  "of objects to a function.",
+R"--(
+A lightweight array-like container of elements created using a "braced list"
+syntax. For example, { 1, 2, 3 } creates a sequences of integers, that has type
+std::initializer_list<int>. Useful as a replacement to passing a vector of 
+objects to a function.
+)--",
   SECTION(
     "All entries in the intializer list must be of the same type!",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(PROTECT(auto list = {1, 2, 3};))
     IN(PROTECT(auto listfloats = {1.1f, 1.2f, 1.3f};))
     IN_ERROR(PROTECT(auto listerror = {1.0f, 2.0, 3};), "error C3535: cannot deduce type for 'auto' from 'initializer list'")

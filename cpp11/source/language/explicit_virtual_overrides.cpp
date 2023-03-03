@@ -11,8 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#explicit-virtual-overrides")
 
@@ -42,15 +40,17 @@ struct B : A {
 
 TEST(
   explicit_virtual_overrides,
-  "Specifies that a virtual function overrides another virtual function. If the\n" 
-  "virtual function does not override a parent's virtual function, throws a\n" 
-  "compiler error.",
+R"--(
+Specifies that a virtual function overrides another virtual function. If the
+virtual function does not override a parent's virtual function, throws a
+compiler error.
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(B b;)
     IN(A* ptr = &b;)
-    IN(std::cout << '\t' << ptr->foo() << std::endl;)
+    IN(print_safe("\t%s\n", ptr->foo());)
   )
 )
 

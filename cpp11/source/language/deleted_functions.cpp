@@ -11,8 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#deleted-functions")
 
@@ -28,11 +26,13 @@ struct A {
 
 TEST(
   deleted_functions,
-  "A more elegant, efficient way to provide a deleted implementation of a\n"
-  "function. Useful for preventing copies on objects.",
+R"--(
+A more elegant, efficient way to provide a deleted implementation of a function.
+Useful for preventing copies on objects.
+)--",
   SECTION(
     "basics",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(A a(100);)
     IN(A b(200);)
     IN_ERROR(A c = a;, "error C2280: 'A::A(const A &)': attempting to reference a deleted function")

@@ -11,8 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#explicit-conversion-functions")
 
@@ -31,10 +29,10 @@ TEST(
   "Conversion functions can now be made explicit using the explicit specifier.",
   SECTION(
     "basic_example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(A a;)
     IN(bool ba = a;)
-    IN(std::cout << '\t' << ba << std::endl;)
+    IN(print_safe("\t%i\n", ba);)
     IN(B b;)
     IN_ERROR(bool bb = b;, "error C2440: 'initializing': cannot convert from 'B' to 'bool'")
     IN_DESC(bool bb = (bool)b;, "has to be explicit!")

@@ -11,14 +11,8 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#final-specifier")
-
-TODO(
-  "1- Provide a way to indicate error in parsed code see 'struct C' without\n" 
-  "commenting the code.")
 
 namespace {
 struct A {
@@ -55,27 +49,29 @@ struct D final : A {
 
 TEST(
   final_specifier,
-  "Specifies that a virtual function cannot be overridden in a derived class or\n" 
-  "that a class cannot be inherited from.",
+R"--(
+Specifies that a virtual function cannot be overridden in a derived class or
+that a class cannot be inherited from.
+)--",
   SECTION(
     "final virtual member functions",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(A a;)
     IN(B b;)
     IN(C c;)
     IN(A* ptr = &a;)
-    IN(std::cout << '\t' << ptr->foo() << std::endl;)
+    IN(print_safe("\t%s\n", ptr->foo());)
     IN(ptr = &b;)
-    IN(std::cout << '\t' << ptr->foo() << std::endl;)
+    IN(print_safe("\t%s\n", ptr->foo());)
     IN(ptr = &c;)
-    IN(std::cout << '\t' << ptr->foo() << std::endl;)
+    IN(print_safe("\t%s\n", ptr->foo());)
   )
   SECTION(
     "A class marked final cannot be inherited at all!",
-    std::cout << GIVEN[1] << std::endl;
+    print_safe("%s\n", GIVEN[1].c_str());
     IN(D d;)
     IN(A* ptr = &d;)
-    IN(std::cout << '\t' << ptr->foo() << std::endl;)
+    IN(print_safe("\t%s\n", ptr->foo());)
   )
 )
 

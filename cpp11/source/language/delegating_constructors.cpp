@@ -11,8 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#delegating-constructors")
 
@@ -26,13 +24,15 @@ struct Foo {
 
 TEST(
   delegating_constructors,
-  "Constructors can now call other constructors in the same class using an\n"
-  "initializer list.",
+R"--(
+Constructors can now call other constructors in the same class using an
+initializer list.
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(Foo foo;)
-    IN(std::cout << '\t' << foo.i << std::endl;)
+    IN(print_safe("\t%i\n", foo.i);)
   )
 )
 

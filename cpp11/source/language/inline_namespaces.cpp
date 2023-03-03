@@ -11,12 +11,13 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES(
-  "https://github.com/AnthonyCalandra/modern-cpp-features#inline-namespaces\n"
-  "https://en.cppreference.com/w/cpp/language/namespace")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#inline-namespaces
+https://en.cppreference.com/w/cpp/language/namespace
+)--"
+  )
 
 namespace {
 namespace Program {
@@ -35,17 +36,19 @@ const char* getInfo() { return "inline namespaces!!"; }
 
 TEST(
   inline_namespaces,
-  "All members of an inline namespace are treated as if they were part of its\n" 
-  "parent namespace, allowing specialization of functions and easing the\n" 
-  "process of versioning. This is a transitive property, if A contains B,\n" 
-  "which in turn contains C and both B and C are inline namespaces, C's members\n" 
-  "can be used as if they were on A.",
+R"--(
+All members of an inline namespace are treated as if they were part of its
+parent namespace, allowing specialization of functions and easing the process of
+versioning. This is a transitive property, if A contains B, which in turn
+contains C and both B and C are inline namespaces, C's members can be used as if
+they were on A.
+)--",
   SECTION(
     "basic examples",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(using namespace Program;)
-    IN(std::cout << getVersion() << std::endl;)
-    IN(std::cout << getInfo() << std::endl;)
+    IN(print_safe("%i\n", getVersion());)
+    IN(print_safe("%s\n", getInfo());)
   )
 )
 
