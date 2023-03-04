@@ -23,13 +23,13 @@ https://en.cppreference.com/w/cpp/language/auto
 https://stackoverflow.com/questions/7138588/c11-auto-what-if-it-gets-a-constant-reference
 https://stackoverflow.com/questions/28621844/is-there-a-typeid-for-references
 )--"
-  )
+)
 
 EXERCISES(
 R"--(
 https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c
 )--"
-  )
+)
 
 namespace {
 // 'auto' in template return type, this is very powerful. Note that the trailing

@@ -17,7 +17,7 @@ R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#inline-namespaces
 https://en.cppreference.com/w/cpp/language/namespace
 )--"
-  )
+)
 
 namespace {
 namespace Program {

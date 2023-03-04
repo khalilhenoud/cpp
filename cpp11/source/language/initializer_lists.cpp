@@ -21,7 +21,7 @@ R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#initializer-lists
 https://en.cppreference.com/w/cpp/utility/initializer_list
 )--"
-  )
+)
 
 namespace {
 template<class T,

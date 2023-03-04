@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <stdexcept>
 
 
@@ -34,7 +33,7 @@ void func5() noexcept
   }
   catch (const std::exception& e)
   {
-    std::cerr << e.what() << '\n';
+    print_safe("%s\n", e.what());
   }
 }
 
@@ -46,15 +45,17 @@ void func6() noexcept
 
 TEST(
   noexcept_specifier,
-  "The noexcept specifier specifies whether a function could throw exceptions.\n" 
-  "It is an improved version of throw().\n"
-  "Non-throwing functions are permitted to call potentially-throwing functions.\n" 
-  "Whenever an exception is thrown and the search for a handler encounters the\n" 
-  "outermost block of a non-throwing function, the function std::terminate() is\n" 
-  "called.",
+R"--(
+The noexcept specifier specifies whether a function could throw exceptions. It
+is an improved version of throw().
+Non-throwing functions are permitted to call potentially-throwing functions.
+Whenever an exception is thrown and the search for a handler encounters the
+outermost block of a non-throwing function, the function std::terminate() is
+called.
+)--",
   SECTION(
     "basic example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(func5());
     IN_ERROR(func6(), "this will call std::terminate()!");
   )

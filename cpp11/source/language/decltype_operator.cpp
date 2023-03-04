@@ -66,7 +66,7 @@ https://github.com/AnthonyCalandra/modern-cpp-features#decltype
 https://stackoverflow.com/questions/16637945/empirically-determine-value-category-of-c11-expression
 https://stackoverflow.com/questions/14115744/significance-of-parentheses-in-decltypec
 )--"
-  )
+)
 
 TEST(
   basics,

@@ -17,7 +17,7 @@ R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#constexpr
 https://en.cppreference.com/w/cpp/language/constexpr
 )--"
-  )
+)
 
 namespace {
 constexpr int32_t constexpr_square(int32_t i)

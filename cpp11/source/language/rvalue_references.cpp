@@ -8,8 +8,6 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#include <iostream>
-
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 #include "utilities\classes\named.h"
@@ -20,10 +18,12 @@ REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#rvalue-refere
 
 TEST(
   binds_only_to_rvalues,
-  "rvalue references binds strictly to rvalues, xvalues are considered rvalues.\n"
-  "xvalues are the result of std::move(lvalues) and can be used as the rhs of \n"
-  "an assignment operation to an rvalue reference. Binding a strictly lvalue \n"
-  "to a rvalue reference will throw a compiler error.",
+R"--(
+rvalue references binds strictly to rvalues, xvalues are considered rvalues.
+xvalues are the result of std::move(lvalues) and can be used as the rhs of an
+assignment operation to an rvalue reference. Binding a strictly lvalue to a
+rvalue reference will throw a compiler error.
+)--",
   SECTION(
     "simple types",
     IN(int i = 5;)
@@ -31,19 +31,19 @@ TEST(
     IN(int&& rref_any = 2;)
     IN_ERROR(int&& rref_i = i;, "compile error, cannot bind to lvalue.")
     IN(int&& rref_i = std::move(i);)
-    IN(std::cout << rref_i << std::endl;)
+    IN(print_safe("%i\n", rref_i);)
     IN(rref_i *= 11;)
-    IN(std::cout << i << std::endl;)
+    IN(print_safe("%i\n", i);)
   )
   SECTION(
     "forwarding references in non templates",
     IN(int i = 6;)
     IN(auto&& universal_rref = 30;)
-    IN(std::cout << universal_rref << std::endl;)
+    IN(print_safe("%i\n", universal_rref);)
     IN(auto&& universal_lref = i;)
-    IN(std::cout << universal_lref << std::endl;)
+    IN(print_safe("%i\n", universal_lref);)
     IN(universal_lref *= 10;)
-    IN(std::cout << i << std::endl;)
+    IN(print_safe("%i\n", i);)
   )
   SECTION(
     "function type resolution",
@@ -58,8 +58,10 @@ TEST(
     IN(printer::print(std::move(x));)
   )
   SECTION(
-    "rvalue reference cannot bind to non-temporaries, either pure rvalues or\n" 
-    "xvalues (result of std::move on lvalues)!! test with classes",
+R"--(
+rvalue reference cannot bind to non-temporaries, either pure rvalues or xvalues
+(result of std::move on lvalues)!! test with classes.
+)--",
     IN(named<true> joe;)
     IN(named<true> mike;)
     IN(auto&& named_rref = std::move(mike);)

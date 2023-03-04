@@ -11,12 +11,13 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES(
-  "https://github.com/AnthonyCalandra/modern-cpp-features#nullptr\n"
-  "https://stackoverflow.com/questions/1282295/what-exactly-is-nullptr#:~:text=According%20to%20cppreference%2C%20nullptr%20is,any%20pointer%20to%20member%20type")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#nullptr
+https://stackoverflow.com/questions/1282295/what-exactly-is-nullptr#:~:text=According%20to%20cppreference%2C%20nullptr%20is,any%20pointer%20to%20member%20type
+)--"
+)
 
 namespace {
 const char* foo(int n)
@@ -32,15 +33,17 @@ const char* foo(char* c)
 
 TEST(
   nullptr_basics,
-  "C++11 introduces a new null pointer type designed to replace C's NULL macro.\n" 
-  "nullptr itself is of type std::nullptr_t and can be implicitly converted into\n"
-  "pointer types, and unlike NULL, not convertible to integral types except bool.",
+R"--(
+C++11 introduces a new null pointer type designed to replace C's NULL macro.
+nullptr itself is of type std::nullptr_t and can be implicitly converted into
+pointer types, and unlike NULL, not convertible to integral types except bool.
+)--",
   SECTION(
     "nullptr is a prvalue and a pointer literal of std::nullptr_t type.",
-    std::cout << GIVEN[0] << std::endl;
-    IN_ERROR(std::cout << foo(NULL) << std::endl;, "error: call of overloaded 'foo(NULL)' is ambiguous")
-    IN(std::cout << foo(nullptr) << std::endl;)
-    IN(std::cout << (sizeof(nullptr) == sizeof(void*)) << std::endl;)
+    print_safe("%s\n", GIVEN[0].c_str());
+    IN_ERROR(print_safe("%s\n", foo(NULL));, "error: call of overloaded 'foo(NULL)' is ambiguous")
+    IN(print_safe("%s\n", foo(nullptr));)
+    IN(print_safe("%i\n", (sizeof(nullptr) == sizeof(void*)));)
   )
 )
 

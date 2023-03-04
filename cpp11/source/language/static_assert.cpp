@@ -15,8 +15,11 @@
 
 
 REFERENCES(
-  "https://github.com/AnthonyCalandra/modern-cpp-features#static-assertions\n"
-  "https://en.cppreference.com/w/cpp/language/static_assert")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#static-assertions
+https://en.cppreference.com/w/cpp/language/static_assert
+)--"
+)
 
 namespace {
 template<class...Args>
@@ -71,7 +74,7 @@ TEST(
   )
   SECTION(
     "Usage with a simple variadic template.",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(static_assert(arity<float, bool, char>::value == 3, "correct");)
     IN(static_assert(arity<float, float>::value == 2, "correct");)
     IN(static_assert(arity<>::value == 0, "correct");)
@@ -79,16 +82,16 @@ TEST(
   )
   SECTION(
     "A more advanced example.",
-    std::cout << GIVEN[1] << std::endl;
+    print_safe("%s\n", GIVEN[1].c_str());
     IN(data_structure<copyable> data_b1;)
     IN(data_b1.data.i = 1;)
     IN(data_structure<copyable> data_b2;)
     IN(data_b2.data.i = 2;)
-    IN(std::cout << "data_b1.data.i = " << data_b1.data.i << std::endl;)
-    IN(std::cout << "data_b2.data.i = " << data_b2.data.i << std::endl;)
+    IN(print_safe("data_b1.data.i = %i\n", data_b1.data.i);)
+    IN(print_safe("data_b2.data.i = %i\n", data_b2.data.i);)
     IN(swap(data_b1, data_b2);)
-    IN(std::cout << "data_b1.data.i = " << data_b1.data.i << std::endl;)
-    IN(std::cout << "data_b2.data.i = " << data_b2.data.i << std::endl;)
+    IN(print_safe("data_b1.data.i = %i\n", data_b1.data.i);)
+    IN(print_safe("data_b2.data.i = %i\n", data_b2.data.i);)
     IN_ERROR(data_structure<no_default> data_a;, "error C2280: 'data_structure<no_default>::data_structure(void)': attempting to reference a deleted function")
   )
 )

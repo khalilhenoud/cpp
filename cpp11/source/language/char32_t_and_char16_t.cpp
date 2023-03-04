@@ -16,7 +16,7 @@ REFERENCES(
 R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#char32_t-and-char16_t
 )--"
-  )
+)
 
 TEST(
   char32_and_char16,

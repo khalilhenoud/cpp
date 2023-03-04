@@ -11,8 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#non-static-data-member-initializers")
 
@@ -37,15 +35,17 @@ struct human {
 
 TEST(
   non_static_data_member_initializers,
-  "Allows non-static data members to be initialized where they are declared,\n" 
-  "potentially cleaning up constructors of default initializations.",
+R"--(
+Allows non-static data members to be initialized where they are declared,
+potentially cleaning up constructors of default initializations.
+)--",
   SECTION(
     "basic example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(cpp03::human baby;)
-    IN(std::cout << '\t' << baby.m_age << std::endl;)
+    IN(print_safe("\t%i\n", baby.m_age);)
     IN(cpp11::human teenager;)
-    IN(std::cout << '\t' << teenager.m_age << std::endl;)
+    IN(print_safe("\t%i\n", teenager.m_age);)
   )
 )
 

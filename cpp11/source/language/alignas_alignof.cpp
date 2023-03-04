@@ -18,7 +18,7 @@ https://en.wikipedia.org/wiki/C%2B%2B11#Control_and_query_object_alignment
 https://en.cppreference.com/w/cpp/language/alignas
 https://stackoverflow.com/questions/36217004/query-the-alignment-of-a-specific-variable
 )--"
-  )
+)
 
 namespace {
 bool is_aligned(const volatile void*p, std::size_t n)

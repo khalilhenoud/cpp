@@ -19,7 +19,7 @@ R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#lambda-expressions
 https://stackoverflow.com/questions/2431596/modifying-reference-member-from-const-member-function-in-c
 )--"
-  )
+)
 
 namespace {
 struct capture_this {

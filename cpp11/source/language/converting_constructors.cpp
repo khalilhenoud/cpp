@@ -20,7 +20,7 @@ R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#converting-constructors
 https://stackoverflow.com/questions/15077466/what-is-a-converting-constructor-in-c-what-is-it-for
 )--"
-  )
+)
 
 namespace {
 struct A {

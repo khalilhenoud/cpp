@@ -17,7 +17,7 @@ R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#attributes
 https://en.cppreference.com/w/cpp/language/attributes
 )--"
-  )
+)
 
 namespace {
 // `noreturn` attribute indicates `f` doesn't return.

@@ -17,7 +17,7 @@ R"--(
 https://github.com/AnthonyCalandra/modern-cpp-features#default-functions
 https://stackoverflow.com/questions/37276413/default-move-constructor-assignment-and-deleted-copy-constructor-assignment
 )--"
-  )
+)
 
 namespace {
 struct A {

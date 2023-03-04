@@ -29,7 +29,7 @@ Interesting read:
 https://stackoverflow.com/questions/16637945/empirically-determine-value-category-of-c11-expression
 https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c
 )--"
-  )
+)
 
 namespace {
 template<class T>

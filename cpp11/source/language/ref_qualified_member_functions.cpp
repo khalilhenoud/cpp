@@ -11,8 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#ref-qualified-member-functions")
 
@@ -27,18 +25,20 @@ struct foo {
 
 TEST(
   ref_qualified_member_functions,
-  "Member functions can now be qualified depending on whether '*this' is an\n"
-  "lvalue or rvalue reference.",
+R"--(
+Member functions can now be qualified depending on whether '*this' is an lvalue
+or rvalue reference.
+)--",
   SECTION(
     "basic example",
-    std::cout << GIVEN[0] << std::endl;
-    foo f;
-    const foo cf;
-    IN(std::cout << '\t' << f.get_value() << std::endl;)
-    IN(std::cout << '\t' << cf.get_value() << std::endl;)
-    IN(std::cout << '\t' << std::move(f).get_value() << std::endl;)
-    IN(std::cout << '\t' << std::move(cf).get_value() << std::endl;)
-    IN(std::cout << '\t' << foo().get_value() << std::endl;)
+    print_safe("%s\n", GIVEN[0].c_str());
+    IN(foo f;)
+    IN(const foo cf;)
+    IN(print_safe("%i\n", f.get_value());)
+    IN(print_safe("%i\n", cf.get_value());)
+    IN(print_safe("%i\n", std::move(f).get_value());)
+    IN(print_safe("%i\n", std::move(cf).get_value());)
+    IN(print_safe("%i\n", foo().get_value());)
   )
 )
 
