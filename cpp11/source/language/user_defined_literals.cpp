@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <string>
 #include <cmath>
 
@@ -36,25 +35,27 @@ int32_t operator "" _int(const char* str, std::size_t length)
 
 TEST(
   user_defined_literals,
-  "User-defined literals allow you to extend the language and add your own\n"
-  "syntax. To create a literal, define a T operator "" X(...) { ... } function\n"
-  "that returns a type T, with a name X. Note that the name of this function\n"
-  "defines the name of the literal. Any literal names not starting with an\n"
-  "underscore are reserved and won't be invoked. There are rules on what\n"
-  "parameters a user-defined literal function should accept, according to what\n"
-  "type the literal is called on.",
+R"--(
+User-defined literals allow you to extend the language and add your own syntax. 
+To create a literal, define a T operator "" X(...) { ... } function that returns
+a type T, with a name X. Note that the name of this function defines the name of
+the literal. 
+Any literal names not starting with an underscore are reserved and won't be
+invoked. There are rules on what parameters a user-defined literal function
+should accept, according to what type the literal is called on.
+)--",
   SECTION(
     "celcius to farenheit conversion.",
-    std::cout << GIVEN[0] << std::endl;
-    IN(std::cout << '\t' << 24_celcius << std::endl;)
-    IN(std::cout << '\t' << 40_celcius << std::endl;)
+    print_safe("%s\n", GIVEN[0].c_str());
+    IN(print_safe("\t%llu\n", 24_celcius);)
+    IN(print_safe("\t%llu\n", 40_celcius);)
   )
   SECTION(
     "String to int conversion.",
-    std::cout << GIVEN[1] << std::endl;
-    IN(std::cout << '\t' << "112001"_int << std::endl;)
-    IN(std::cout << '\t' << "650"_int << std::endl;)
-    IN(std::cout << '\t' << "-115"_int << std::endl;)
+    print_safe("%s\n", GIVEN[1].c_str());
+    IN(print_safe("\t%i\n", "112001"_int);)
+    IN(print_safe("\t%i\n", "650"_int);)
+    IN(print_safe("\t%i\n", "-115"_int);)
   )
 )
 

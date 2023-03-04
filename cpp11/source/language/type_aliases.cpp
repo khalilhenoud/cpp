@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <vector>
 #include <list>
 #include <string>
@@ -36,26 +35,28 @@ using mytuple = std::tuple<T...>;
 
 TEST(
   type_aliases,
-  "Semantically similar to using a typedef however, type aliases with using are\n" 
-  "easier to read and are compatible with templates.",
+R"--(
+Semantically similar to using a typedef however, type aliases with using are
+easier to read and are compatible with templates.
+)--",
   SECTION(
     "basics",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN_ERROR(template<class T> using myvec = std::vector<T>;, "error C2951: template declarations are only permitted at global, namespace, or class scope.")
     IN_DESC(using myu32vec = std::vector<uint32_t>;, "this is fine though.");
     IN(PROTECT(myu32vec uvec = {1, 2, 3};))
-    IN(std::cout << '\t' << uvec[0] << std::ends << uvec[1] << std::ends << uvec[2] << std::endl;)
+    IN(print_safe("\t%u %u %u\n", uvec[0], uvec[1], uvec[2]);)
     IN(PROTECT(myvec<int32_t> vec = { 15, 25, 38 };))
-    IN(std::cout << '\t' << vec[0] << std::ends << vec[1] << std::ends << vec[2] << std::endl;)
+    IN(print_safe("\t%i %i %i\n", vec[0], vec[1], vec[2]);)
     IN(PROTECT(mylist<int32_t> list = { 111, 222, 333 };))
-    IN(std::cout << '\t' << *std::next(list.begin(), 0) << std::ends << *std::next(list.begin(), 1) << std::ends << *std::next(list.begin(), 2) << std::endl;)
+    IN(print_safe("\t%i %i %i\n", *std::next(list.begin(), 0), *std::next(list.begin(), 1), *std::next(list.begin(), 2));)
     IN(mystring str = "example";)
-    IN(std::cout << '\t' << str << std::endl;)
-    std::cout << std::endl;
+    IN(print_safe("\t%s\n", str.c_str());)
+    print_safe("\n");
     IN(PROTECT(mytuple<int, float, double> mt = std::make_tuple(1, 0.5f, 0.9221223);))
-    IN(std::cout << '\t' << std::get<0>(mt) << std::endl;)
-    IN(std::cout << '\t' << std::get<1>(mt) << std::endl;)
-    IN(std::cout << '\t' << std::get<2>(mt) << std::endl;)
+    IN(print_safe("\t%i\n", std::get<0>(mt));)
+    IN(print_safe("\t%f\n", std::get<1>(mt));)
+    IN(print_safe("\t%f\n", std::get<2>(mt));)
   )
 )
 

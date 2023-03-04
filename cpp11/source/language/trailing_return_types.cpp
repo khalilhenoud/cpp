@@ -11,8 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
-
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#trailing-return-types")
 
@@ -26,7 +24,7 @@ auto&& one = []() -> int { return 1; };
 }
 
 namespace {
-// NOTE: This does not compile!
+// NOTE: This does not compile! a and b in decltype are not defined yet.
 // template <typename T, typename U>
 // decltype(a + b) add(T a, U b) {
 //     return a + b;
@@ -41,19 +39,22 @@ auto add(T a, L b) -> decltype(a + b)
 
 TEST(
   trailing_return_types,
-  "C++11 allows functions and lambdas an alternative syntax for specifying their\n" 
-  "return types.",
+R"--(
+C++11 allows functions and lambdas an alternative syntax for specifying their
+return types.
+)--",
   SECTION(
     "basic examples",
-    std::cout << GIVEN[0] << std::endl;
-    IN(std::cout << '\t' << return_float() << std::endl;)
-    IN(std::cout << '\t' << one() << std::endl;)
+    print_safe("%s\n", GIVEN[0].c_str());
+    IN(print_safe("\t%f\n", return_float());)
+    IN(print_safe("\t%i\n", one());)
   )
   SECTION(
-    "This feature is especially useful when certain return types cannot be\n" 
-    "resolved:",
-    std::cout << GIVEN[1] << std::endl;
-    IN(std::cout << '\t' << add(1, 2.4f) << std::endl;)
+R"--(
+This feature is especially useful when certain return types cannot be resolved:
+)--",
+    print_safe("%s\n", GIVEN[1].c_str());
+    IN(print_safe("\t%f\n", add(1, 2.4f));)
   )
 )
 

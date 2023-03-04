@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <numeric>
 #include <vector>
 #include <type_traits>
@@ -37,23 +36,25 @@ auto sum(First first, Args... args) -> decltype(first)
 
 TEST(
   variadic_templates_basics,
-  "The ... syntax creates a parameter pack or expands one. A template parameter\n"
-  "pack is a template parameter that accepts zero or more template arguments\n"
-  "(non-types, types, or templates). A template with at least one parameter\n"
-  "pack is called a variadic template.",
+R"--(
+The ... syntax creates a parameter pack or expands one. A template parameter
+pack is a template parameter that accepts zero or more template arguments
+(non-types, types, or templates). A template with at least one parameter pack is
+called a variadic template.
+)--",
   SECTION(
     "Use 'sizeof...(pack)' to query the number of elements in a parameter pack.",
-    std::cout << GIVEN[0] << std::endl;
-    IN(std::cout << arity<>::value << std::endl;)
-    IN(std::cout << PROTECT(arity<char, int, float, double>)::value << std::endl;)
+    print_safe("%s\n", GIVEN[0].c_str());
+    IN(print_safe("\t%i\n", arity<>::value);)
+    IN(print_safe("\t%i\n", PROTECT(arity<char, int, float, double>)::value);)
   )
   SECTION(
     "Write a variadic summation function with a deduced return type",
-    std::cout << GIVEN[1] << std::endl;
-    IN(std::cout << sum(1, 2, 3) << std::endl;)
-    IN(std::cout << sum(1.9, 2.9, 3.9) << std::endl;)
-    IN(std::cout << sum(1.2f, 2.f, 54.f) << std::endl;)
-    IN_ERROR(std::cout << sum(1.2f, 2, 54.f) << std::endl;, "error: all elements in an initializer list must be same type.")
+    print_safe("%s\n", GIVEN[1].c_str());
+    IN(print_safe("\t%i\n", sum(1, 2, 3));)
+    IN(print_safe("\t%f\n", sum(1.9, 2.9, 3.9));)
+    IN(print_safe("\t%f\n", sum(1.2f, 2.f, 54.f));)
+    IN_ERROR(print_safe("\t%f\n", sum(1.2f, 2, 54.f));, "error: all elements in an initializer list must be same type.")
   )
 )
 

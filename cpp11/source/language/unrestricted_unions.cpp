@@ -29,26 +29,27 @@ union U {
     double w;
     Point p; // Invalid in C++03; valid in C++11.
     U() {} // Due to the Point member, a constructor definition is now needed.
-    U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
+    U(const Point& pt) : p(pt) {}
     U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // Assign Point object using placement 'new'.
 };
 }
 
 TEST(
   unrestricted_unions,
-  "In C++03, there are restrictions on what types of objects can be members of a\n" 
-  "union. For example, unions cannot contain any objects that define a\n" 
-  "non-trivial constructor or destructor. C++11 lifts some of these\n" 
-  "restrictions.\n"
-  "If a union member has a non trivial special member function, the compiler\n" 
-  "will not generate the equivalent member function for the union and it must be\n" 
-  "manually defined.\n"
-  "The changes will not break any existing code since they only relax current\n" 
-  "rules.",
+R"--(
+In C++03, there are restrictions on what types of objects can be members of a
+union. For example, unions cannot contain any objects that define a non-trivial
+constructor or destructor. C++11 lifts some of these restrictions.
+If a union member has a non trivial special member function, the compiler will
+not generate the equivalent member function for the union and it must be
+manually defined.
+The changes will not break any existing code since they only relax current
+rules.
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(U u(Point(1, 2));)
-    IN(std::cout << '\t' << u.p.x_ << std::endl;)
+    IN(print_safe("\t%i\n", u.p.x_);)
   )
 )
