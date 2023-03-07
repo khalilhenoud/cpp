@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <future>
 #include <mutex>
 #include <string>
@@ -20,8 +19,11 @@
 
 
 REFERENCES(
-  "https://github.com/AnthonyCalandra/modern-cpp-features#stdasync\n"
-  "https://en.cppreference.com/w/cpp/thread/async")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#stdasync
+https://en.cppreference.com/w/cpp/thread/async
+)--"
+)
 
 namespace {
 int32_t foo()
@@ -54,20 +56,20 @@ struct X {
 void foo(int32_t i, const std::string& str)
 {
   std::lock_guard<std::mutex> _(g_print_mutex);
-  std::cout << "foo: " << str << ' ' << i << std::endl;
+  print_safe("foo: %s %i\n", str.c_str(), i);
 }
 
 void bar(const std::string& str)
 {
   std::lock_guard<std::mutex> _(g_print_mutex);
-  std::cout << "bar: " << str << std::endl;
+  print_safe("bar: %s\n", str.c_str());
 }
 
 int32_t operator()(int32_t i) 
 {
   {
     std::lock_guard<std::mutex> _(g_print_mutex);
-    std::cout << "functor: " << i << std::endl; 
+    print_safe("functor: %i\n", i); 
   }
   return i + 10;
 }
@@ -76,29 +78,31 @@ int32_t operator()(int32_t i)
 
 TEST(
   std_async,
-  "std::async runs the given function either asynchronously or lazily-evaluated,\n" 
-  "then returns a std::future which holds the result of that function call.\n"
-  "The first parameter is the policy which can be:\n"
-  " - std::launch::async | std::launch::deferred It is up to the implementation\n" 
-  "   whether to perform asynchronous execution or lazy evaluation.\n"
-  " - std::launch::async Run the callable object on a new thread.\n"
-  " - std::launch::deferred Perform lazy evaluation on the current thread.",
+R"--(
+std::async runs the given function either asynchronously or lazily-evaluated,
+then returns a std::future which holds the result of that function call.
+The first parameter is the policy which can be:
+ - std::launch::async | std::launch::deferred It is up to the implementation
+   whether to perform asynchronous execution or lazy evaluation.
+ - std::launch::async Run the callable object on a new thread.
+ - std::launch::deferred Perform lazy evaluation on the current thread.
+)--",
   SECTION(
     "basic example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(PROTECT(std::future<int32_t> handle = std::async(std::launch::async, foo);))
     IN(handle.wait();)
-    IN(std::cout << '\t' << handle.get() << std::endl;)
+    IN(print_safe("\t%i\n", handle.get());)
   )
   SECTION(
     "parallel sum example",
-    std::cout << GIVEN[1] << std::endl;
+    print_safe("%s\n", GIVEN[1].c_str());
     IN(PROTECT(std::vector<int32_t> v(10000, 1);))
-    IN(std::cout << "the sum is: " << parallel_sum(std::begin(v), std::end(v)) << std::endl;)
+    IN(print_safe("the sum is: %i\n", parallel_sum(std::begin(v), std::end(v)));)
   )
   SECTION(
     "policy examples",
-    std::cout << GIVEN[2] << std::endl;
+    print_safe("%s\n", GIVEN[2].c_str());
     IN(X x;)
     DESC_IN(
       "default policy call, implementation dependant",
@@ -110,7 +114,7 @@ TEST(
       "async policy, usually evaluated on a separate thread",
       auto a3 = std::async(std::launch::async, &X::operator(), x, 43);)
     IN(a2.wait());
-    IN(std::cout << a3.get() << std::endl;)
-    std::cout << "// if a1 is not done at this point, destructor of a1 prints \"Hello 42\" here" << std::endl;
+    IN(print_safe("\t%i\n", a3.get());)
+    print_safe(R"--(// if a1 is not done at this point, destructor of a1 prints "hello 42" here)--");
   )
 )

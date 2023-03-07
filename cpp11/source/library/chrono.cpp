@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <chrono>
 
 
@@ -26,17 +25,19 @@ void waste_cycles()
 
 TEST(
   chrono,
-  "The chrono library contains a set of utility functions and types that deal\n" 
-  "with durations, clocks, and time points. One use case of this library is\n" 
-  "benchmarking code:",
+R"--(
+The chrono library contains a set of utility functions and types that deal with
+durations, clocks, and time points. One use case of this library is benchmarking
+code:
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(PROTECT(std::chrono::time_point<std::chrono::steady_clock> start, end;))
     IN(start = std::chrono::steady_clock::now();)
     IN(waste_cycles();)
     IN(end = std::chrono::steady_clock::now();)
     IN(std::chrono::duration<double> elapsed_seconds = end - start;)
-    IN(std::cout << "\telapsed seconds: " << elapsed_seconds.count() << std::endl;)
+    IN(print_safe("\telapsed seconds: %f\n", elapsed_seconds.count());)
   )
 )

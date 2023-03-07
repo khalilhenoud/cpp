@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <vector>
 #include <algorithm>
 
@@ -30,15 +29,17 @@ int32_t count_twos(const T& container)
 
 TEST(
   std_begin_end,
-  "std::begin and std::end free functions were added to return begin and end\n" 
-  "iterators of a container generically. These functions also work with raw\n" 
-  "arrays which do not have begin and end member functions.",
+R"--(
+std::begin and std::end free functions were added to return begin and end
+iterators of a container generically. These functions also work with raw arrays
+which do not have begin and end member functions.
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(PROTECT(std::vector<int32_t> vec = {1, 2, 4, 2, 43, 122, 325, 2};))
     IN(PROTECT(int32_t arr[] = {120, 11, 2, 424, 111, 22, 1, 2, 5};))
-    IN(std::cout << '\t' << count_twos(vec) << std::endl;)
-    IN(std::cout << '\t' << count_twos(arr) << std::endl;)
+    IN(print_safe("\t%i\n", count_twos(vec));)
+    IN(print_safe("\t%i\n", count_twos(arr));)
   )
 )

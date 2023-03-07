@@ -12,11 +12,10 @@
 #include "utilities\registrar.h"
 
 #include <atomic>
-#include <iostream>
 #include <mutex>
 #include <thread>
 
-
+/**
 REFERENCES("https://en.cppreference.com/w/cpp/atomic/atomic")
 
 namespace {
@@ -123,3 +122,4 @@ TEST(
     std::cout << GIVEN[0] << std::endl;
   )
 )
+*/

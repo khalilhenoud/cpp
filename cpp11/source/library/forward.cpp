@@ -12,15 +12,17 @@
 #include "utilities\registrar.h"
 #include "utilities\classes\carray.h"
 
-#include <iostream>
 #include <type_traits>
 
 
 REFERENCES(
-  "[1] https://github.com/AnthonyCalandra/modern-cpp-features#stdforward\n"
-  "[2] https://github.com/AnthonyCalandra/modern-cpp-features#forwarding-references\n"
-  "[3] https://stackoverflow.com/questions/25245453/what-is-a-nondeduced-context\n"
-  "[4] https://en.cppreference.com/w/cpp/language/template_argument_deduction")
+R"--(
+https://github.com/AnthonyCalandra/modern-cpp-features#stdforward
+https://github.com/AnthonyCalandra/modern-cpp-features#forwarding-references
+https://stackoverflow.com/questions/25245453/what-is-a-nondeduced-context
+https://en.cppreference.com/w/cpp/language/template_argument_deduction
+)--"
+)
 
 namespace {
 namespace non_std {
@@ -48,12 +50,14 @@ T wrapper(T&& arg)
 
 TEST(
   std_forward,
-  "Returns the arguments passed to it while maintaining their value category\n" 
-  "and cv-qualifiers. Useful for generic code and factories. Used in conjunction\n" 
-  "with forwarding references, @see [2]",
+R"--(
+Returns the arguments passed to it while maintaining their value category and
+cv-qualifiers. Useful for generic code and factories. Used in conjunction with 
+forwarding references, @see [2].
+)--",
   SECTION(
     "examples",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(PROTECT(carray<int, true> data{5, 1};))
     IN_DESC(PROTECT(non_std::wrapper(carray<int, true>{5, 6});), "moved")
     IN_DESC(PROTECT(wrapper(carray<int, true>{5, 6});), "moved")
