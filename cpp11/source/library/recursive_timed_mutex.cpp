@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <mutex>
 #include <sstream>
 #include <chrono>
@@ -56,24 +55,25 @@ void job2(int32_t i)
   }
 
   std::lock_guard<std::mutex> _(g_print_mutex);
-  std::cout << "\t" << stream.str() << std::endl;
+  print_safe("\t%s\n", stream.str().c_str());
 }
 }
 
 TEST(
   recursive_timed_mutex,
-  "The recursive_timed_mutex class is a synchronization primitive that can be\n" 
-  "used to protect shared data from being simultaneously accessed by multiple\n" 
-  "threads.\n"
-  "In a manner similar to std::recursive_mutex, recursive_timed_mutex provides\n" 
-  "exclusive, recursive ownership semantics. In addition, recursive_timed_mutex\n" 
-  "provides the ability to attempt to claim ownership of a recursive_timed_mutex\n" 
-  "with a timeout via the try_lock_for and try_lock_until member functions.\n"
-  "The recursive_timed_mutex class satisfies all requirements of TimedMutex and\n" 
-  "StandardLayoutType.",
+R"--(
+The recursive_timed_mutex class is a synchronization primitive that can be used
+to protect shared data from being simultaneously accessed by multiple threads.
+In a manner similar to std::recursive_mutex, recursive_timed_mutex provides
+exclusive, recursive ownership semantics. In addition, recursive_timed_mutex
+provides the ability to attempt to claim ownership of a recursive_timed_mutex
+with a timeout via the try_lock_for and try_lock_until member functions.
+The recursive_timed_mutex class satisfies all requirements of TimedMutex and
+StandardLayoutType.
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(std::vector<std::thread> threads;)
     IN(threads.emplace_back(job2, 0);)
     IN(threads.emplace_back(job2, 1);)

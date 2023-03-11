@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <mutex>
 #include <thread>
 
@@ -51,21 +50,23 @@ void transfer(bank_account& from, bank_account& to, int32_t amount)
 
 TEST(
   lock_tag,
-  "std::defer_lock, std::try_to_lock and std::adopt_lock are instances of empty\n" 
-  "struct tag types std::defer_lock_t, std::try_to_lock_t and std::adopt_lock_t\n" 
-  "respectively.\n"
-  "They are used to specify locking strategies for std::lock_guard,\n" 
-  "std::unique_lock and std::shared_lock(cpp14).",
+R"--(
+std::defer_lock, std::try_to_lock and std::adopt_lock are instances of empty
+struct tag types std::defer_lock_t, std::try_to_lock_t and std::adopt_lock_t
+respectively.
+They are used to specify locking strategies for std::lock_guard,
+std::unique_lock and std::shared_lock(cpp14).
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(bank_account my_account{100};)
     IN(bank_account your_account{50};)
     IN(PROTECT(std::thread t1{transfer, std::ref(my_account), std::ref(your_account), 10};))
     IN(PROTECT(std::thread t2{transfer, std::ref(your_account), std::ref(my_account), 5};))
     IN(t1.join();)
     IN(t2.join();)
-    IN(std::cout << "\tmy account balance = " << my_account.balance << std::endl;)
-    IN(std::cout << "\tyour account balance = " << your_account.balance << std::endl;)
+    IN(print_safe("\tmy account balance = %i\n", my_account.balance);)
+    IN(print_safe("\tyour account balance = %i\n", your_account.balance);)
   )
 )

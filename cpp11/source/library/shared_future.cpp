@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <future> 
 #include <chrono>
 
@@ -56,25 +55,31 @@ void runner()
   // signals the threads to go.
   ready_promise.set_value();
 
-  std::cout << "\ttiming_test 1: " << result1.get().count() << " ms after start" << std::endl;
-  std::cout << "\ttiming_test 2: " << result2.get().count() << " ms after start" << std::endl;
+  print_safe("\ttiming_test 2: %f ms after start\n", result2.get().count());
+  print_safe("\ttiming_test 1: %f ms after start\n", result1.get().count());
 }
 }
 
 TEST(
   shared_future,
-  "The class template std::shared_future provides a mechanism to access the\n" 
-  "result of asynchronous operations, similar to std::future, except that\n" 
-  "multiple threads are allowed to wait for the same shared state. Unlike\n" 
-  "std::future, which is only moveable (so only one instance can refer to any\n" 
-  "particular asynchronous result), std::shared_future is copyable and multiple\n" 
-  "shared future objects may refer to the same shared state.\n"
-  "Access to the same shared state from multiple threads is safe if each thread\n" 
-  "does it through its own copy of a shared_future object.",
+R"--(
+The class template std::shared_future provides a mechanism to access the result
+of asynchronous operations, similar to std::future, except that multiple threads
+are allowed to wait for the same shared state. 
+
+Unlike std::future, which is only moveable (so only one instance can refer to 
+any particular asynchronous result), std::shared_future is copyable and multiple
+shared future objects may refer to the same shared state.
+
+Access to the same shared state from multiple threads is safe if each thread
+does it through its own copy of a shared_future object.
+)--",
   SECTION(
-    "A shared_future may be used to signal multiple threads simultaneously,\n" 
-    "similar to std::condition_variable::notify_all()",
-    std::cout << GIVEN[0] << std::endl;
+R"--(
+A shared_future may be used to signal multiple threads simultaneously, similar
+to std::condition_variable::notify_all().
+)--",
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(runner();)
   )
 )
