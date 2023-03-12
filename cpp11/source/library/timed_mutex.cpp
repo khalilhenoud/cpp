@@ -11,7 +11,6 @@
 #include "utilities\shared.h"
 #include "utilities\registrar.h"
 
-#include <iostream>
 #include <mutex>
 #include <thread>
 #include <chrono>
@@ -20,13 +19,16 @@
 
 
 REFERENCES(
-  "https://en.cppreference.com/w/cpp/thread/timed_mutex\n"
-  "https://en.cppreference.com/w/cpp/thread/timed_mutex/try_lock_for")
+R"--(
+https://en.cppreference.com/w/cpp/thread/timed_mutex
+https://en.cppreference.com/w/cpp/thread/timed_mutex/try_lock_for
+)--"
+)
 
 namespace {
 using namespace std::chrono_literals;
 
-std::mutex cout_mutex;  // control access to std::cout
+std::mutex cout_mutex;  // control access to print
 std::timed_mutex mutex;
 
 void job(int32_t id)
@@ -45,21 +47,23 @@ void job(int32_t id)
   }
 
   std::lock_guard<std::mutex> _(cout_mutex);
-  std::cout << "\t[" << id << "]" << stream.str() << std::endl;
+  print_safe("\t[%i] %s\n", id, stream.str().c_str());
 }
 }
 
 TEST(
   timed_mutex,
-  "The timed_mutex class is a synchronization primitive that can be used to\n" 
-  "protect shared data from being simultaneously accessed by multiple threads.\n"
-  "In a manner similar to mutex, timed_mutex offers exclusive, non-recursive\n" 
-  "ownership semantics. In addition, timed_mutex provides the ability to\n" 
-  "attempt to claim ownership of a timed_mutex with a timeout via the member\n" 
-  "functions try_lock_for() and try_lock_until().",
+R"--(
+The timed_mutex class is a synchronization primitive that can be used to protect
+shared data from being simultaneously accessed by multiple threads.
+In a manner similar to mutex, timed_mutex offers exclusive, non-recursive
+ownership semantics. In addition, timed_mutex provides the ability to attempt to
+claim ownership of a timed_mutex with a timeout via the member functions
+try_lock_for() and try_lock_until().
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
+    print_safe("%s\n", GIVEN[0].c_str());
     IN(std::vector<std::thread> threads;)
     IN(threads.emplace_back(job, 0);)
     IN(threads.emplace_back(job, 1);)

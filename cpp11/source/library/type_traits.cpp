@@ -12,7 +12,6 @@
 #include "utilities\registrar.h"
 
 #include <type_traits>
-#include <iostream>
 
 
 REFERENCES("https://github.com/AnthonyCalandra/modern-cpp-features#type-traits")
@@ -23,14 +22,16 @@ static_assert(std::is_integral<int>::value);
 
 TEST(
   type_traits,
-  "Type traits defines a compile-time template-based interface to query or\n" 
-  "modify the properties of types.",
+R"--(
+Type traits defines a compile-time template-based interface to query or modify
+the properties of types.
+)--",
   SECTION(
     "example",
-    std::cout << GIVEN[0] << std::endl;
-    IN(std::cout << std::is_integral<int>::value << std::endl;)
-    IN(PROTECT(std::cout << std::is_same<int, int>::value << std::endl;))
-    IN(PROTECT(std::cout << std::is_same<std::conditional<true, int, double>::type, int>::value << std::endl;))
-    IN(PROTECT(std::cout << std::is_same<std::conditional<false, int, double>::type, int>::value << std::endl;))
+    print_safe("%s\n", GIVEN[0].c_str());
+    IN(print_safe("%i\n", std::is_integral<int>::value);)
+    IN(PROTECT(print_safe("%i\n", std::is_same<int, int>::value);))
+    IN(PROTECT(print_safe("%i\n", std::is_same<std::conditional<true, int, double>::type, int>::value);))
+    IN(PROTECT(print_safe("%i\n", std::is_same<std::conditional<false, int, double>::type, int>::value);))
   )
 )
