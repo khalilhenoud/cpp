@@ -11,8 +11,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 
 std::string get_short_name(const char* file);
 
 std::string get_directory_name(const char* file);
+
+std::vector<std::string> get_directory_hierarchy(const char* file, const char* relative_to);

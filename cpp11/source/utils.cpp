@@ -9,6 +9,8 @@
  * 
  */
 #include "utilities\utils.h"
+#include <cstdio>
+#include <cstring>
 
 
 std::string get_short_name(const char* file)
@@ -44,4 +46,28 @@ std::string get_directory_name(const char* file)
   if (found == std::string::npos)
     return "";
   return str.substr(found + 1); 
+}
+
+std::vector<std::string> 
+get_directory_hierarchy(
+  const char* file, 
+  const char* relative_to)
+{
+  std::vector<std::string> hierarchy;
+
+  char data[1024] = { 0 };
+  memset(data, 0, sizeof(data));
+  memcpy(data, file, strlen(file));
+  
+  char* token = strtok(data, "/\\");
+  bool start = false;
+  while (token) {
+    start = start || !strcmp(token, relative_to);
+    if (start)
+        hierarchy.push_back(token);
+    token = strtok(NULL, "/\\");
+  }
+
+  hierarchy.back() = get_short_name(file);
+  return hierarchy;
 }

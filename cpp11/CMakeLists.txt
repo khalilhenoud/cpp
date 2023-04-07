@@ -12,81 +12,82 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add the executable
 add_executable(${PROJECT_NAME} 
-			./source/driver.cpp
-			./source/registrar.cpp
-			./source/utils.cpp
-			./source/language/attributes.cpp
-			./source/language/auto.cpp
-			./source/language/char32_t_and_char16_t.cpp
-			./source/language/constexpr.cpp
-			./source/language/converting_constructors.cpp
-      ./source/language/decltype_operator.cpp
-			./source/language/default_functions.cpp
-			./source/language/delegating_constructors.cpp
-			./source/language/deleted_functions.cpp
-			./source/language/explicit_conversion_functions.cpp
-			./source/language/explicit_virtual_overrides.cpp
-			./source/language/final_specifier.cpp
-			./source/language/forwarding_references.cpp
-			./source/language/initializer_lists.cpp
-			./source/language/inline_namespaces.cpp
-			./source/language/lambda_expressions.cpp
-			./source/language/move_semantics.cpp
-			./source/language/noexcept_specifier.cpp
-			./source/language/non_static_data_member_initializers.cpp
-			./source/language/nullptr.cpp
-			./source/language/range_based_for_loops.cpp
-			./source/language/raw_string_literals.cpp
-			./source/language/ref_qualified_member_functions.cpp
-			./source/language/right_angle_brackets.cpp
-			./source/language/rvalue_references.cpp
-			./source/language/special_member_functions_for_move_semantics.cpp
-			./source/language/static_assert.cpp
-			./source/language/strong_typed_enums.cpp
-			./source/language/trailing_return_types.cpp
-			./source/language/type_aliases.cpp
-			./source/language/user_defined_literals.cpp
-			./source/language/variadic_templates.cpp
-      ./source/language/alignas_alignof.cpp
-      ./source/language/sizeof_member_variables.cpp
-      ./source/language/unrestricted_unions.cpp
-      ./source/language/thread_local_storage.cpp
-      ./source/library/move.cpp
-      ./source/library/forward.cpp
-      ./source/library/to_string.cpp
-      ./source/library/type_traits.cpp
-      ./source/library/array.cpp
-      ./source/library/tuple.cpp
-      ./source/library/tie.cpp
-      ./source/library/begin_end.cpp
-      ./source/library/unordered_containers.cpp
-      ./source/library/chrono.cpp
-      ./source/library/ref.cpp
-      ./source/library/make_shared.cpp
-      ./source/library/smart_pointers.cpp
-      ./source/library/forward_list.cpp
-      ./source/library/function.cpp
-      ./source/library/random.cpp
-      ./source/library/regex.cpp
-      ./source/library/thread.cpp
-      ./source/library/async.cpp
-      ./source/library/mutex.cpp
-      ./source/library/timed_mutex.cpp
-      ./source/library/recursive_mutex.cpp
-      ./source/library/recursive_timed_mutex.cpp
-      ./source/library/lock_guard.cpp
-      ./source/library/unique_lock.cpp
-      ./source/library/lock.cpp
-      ./source/library/try_lock.cpp
-      ./source/library/lock_tag.cpp
-      ./source/library/call_once.cpp
-      ./source/library/condition_variable.cpp
-      ./source/library/notify_all_at_thread_exit.cpp
-      ./source/library/promise.cpp
-      ./source/library/future.cpp
-      ./source/library/shared_future.cpp
-      ./source/library/packaged_task.cpp
-      ./source/library/memory_order.cpp
+			"./source/driver.cpp"
+			"./source/registrar.cpp"
+			"./source/utils.cpp"
+			"./source/language/attributes.cpp"
+      "./source/language/inline_namespaces.cpp"
+      "./source/language/range_based_for_loops.cpp"
+      "./source/language/classes/converting_constructors.cpp"
+      "./source/language/classes/default_functions.cpp"
+      "./source/language/classes/delegating_constructors.cpp"
+      "./source/language/classes/deleted_functions.cpp"
+      "./source/language/classes/explicit_conversion_functions.cpp"
+      "./source/language/classes/explicit_virtual_overrides.cpp"
+      "./source/language/classes/final_specifier.cpp"
+      "./source/language/classes/move_semantics.cpp"
+      "./source/language/classes/non_static_data_member_initializers.cpp"
+      "./source/language/classes/ref_qualified_member_functions.cpp"
+      "./source/language/classes/sizeof_member_variables.cpp"
+      "./source/language/classes/special_member_functions_for_move_semantics.cpp"
+      "./source/language/functions/lambda_expressions.cpp"
+      "./source/language/functions/noexcept_specifier.cpp"
+      "./source/language/functions/trailing_return_types.cpp"
+      "./source/language/literals/nullptr.cpp"
+      "./source/language/literals/raw_string_literals.cpp"
+      "./source/language/literals/user_defined_literals.cpp"
+      "./source/language/templates/forwarding_references.cpp"
+      "./source/language/templates/right_angle_brackets.cpp"
+      "./source/language/templates/variadic_templates.cpp"
+      "./source/language/types/alignas_alignof.cpp"
+      "./source/language/types/auto.cpp"
+      "./source/language/types/constexpr.cpp"
+      "./source/language/types/decltype_operator.cpp"
+      "./source/language/types/initializer_lists.cpp"
+      "./source/language/types/rvalue_references.cpp"
+      "./source/language/types/static_assert.cpp"
+      "./source/language/types/strong_typed_enums.cpp"
+      "./source/language/types/thread_local_storage.cpp"
+      "./source/language/types/type_aliases.cpp"
+      "./source/language/types/unrestricted_unions.cpp"
+      "./source/library/begin_end.cpp"
+      "./source/library/random.cpp"
+      "./source/library/regex.cpp"
+      "./source/library/type_traits.cpp"
+      "./source/library/concurrency support/async.cpp"
+      "./source/library/concurrency support/atomic.cpp"
+      "./source/library/concurrency support/call_once.cpp"
+      "./source/library/concurrency support/condition_variable.cpp"
+      "./source/library/concurrency support/future.cpp"
+      "./source/library/concurrency support/lock.cpp"
+      "./source/library/concurrency support/lock_guard.cpp"
+      "./source/library/concurrency support/lock_tag.cpp"
+      "./source/library/concurrency support/memory_order.cpp"
+      "./source/library/concurrency support/mutex.cpp"
+      "./source/library/concurrency support/notify_all_at_thread_exit.cpp"
+      "./source/library/concurrency support/packaged_task.cpp"
+      "./source/library/concurrency support/promise.cpp"
+      "./source/library/concurrency support/recursive_mutex.cpp"
+      "./source/library/concurrency support/recursive_timed_mutex.cpp"
+      "./source/library/concurrency support/shared_future.cpp"
+      "./source/library/concurrency support/thread.cpp"
+      "./source/library/concurrency support/timed_mutex.cpp"
+      "./source/library/concurrency support/try_lock.cpp"
+      "./source/library/concurrency support/unique_lock.cpp"
+      "./source/library/containers/array.cpp"
+      "./source/library/containers/forward_list.cpp"
+      "./source/library/containers/unordered_containers.cpp"
+      "./source/library/general utilities/chrono.cpp"
+      "./source/library/general utilities/forward.cpp"
+      "./source/library/general utilities/function.cpp"
+      "./source/library/general utilities/move.cpp"
+      "./source/library/general utilities/ref.cpp"
+      "./source/library/general utilities/tie.cpp"
+      "./source/library/general utilities/tuple.cpp"
+      "./source/library/memory management/make_shared.cpp"
+      "./source/library/memory management/smart_pointers.cpp"
+      "./source/library/strings/char32_t_and_char16_t.cpp"
+      "./source/library/strings/to_string.cpp"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
